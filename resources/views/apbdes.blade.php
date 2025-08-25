@@ -82,26 +82,30 @@
             </div>
         </nav>
     </div>
+
     <section class="section">
         <div class="container">
             <div class="row g-3 align-items-center mb-3">
                 <div class="col-md-4">
                     <label class="form-label mb-1">Tahun Anggaran</label>
-                    <select id="tahunSelect" class="form-select year-select"></select>
+                    <form method="GET" action="{{ route('apbdes.index') }}">
+                        <select name="tahun" class="form-select year-select" onchange="this.form.submit()">
+                            @foreach ($years as $y)
+                                <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>{{ $y }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
                 </div>
-                <div class="col-md-8">
+                {{-- <div class="col-md-8">
                     <div class="d-flex flex-wrap gap-2 mt-3 mt-md-0">
-                        <a id="btnAPB" class="btn btn-dark disabled" target="_blank" rel="noopener">
-                            <i class="bi bi-file-earmark-pdf me-1"></i> Unduh Dokumen APBDes
-                        </a>
-                        <a id="btnPerdes" class="btn btn-outline-dark disabled" target="_blank" rel="noopener">
-                            <i class="bi bi-file-text me-1"></i> Perdes APBDes
-                        </a>
-                        <a id="btnLRA" class="btn btn-outline-dark disabled" target="_blank" rel="noopener">
-                            <i class="bi bi-journal-check me-1"></i> Laporan Realisasi
-                        </a>
+                        @foreach ($apbdes->dokumen as $doc)
+                            <a href="{{ asset($doc->path) }}" class="btn btn-outline-dark" target="_blank" rel="noopener">
+                                <i class="bi bi-file-earmark me-1"></i> {{ $doc->nama }}
+                            </a>
+                        @endforeach
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -112,25 +116,25 @@
                 <div class="col-md-3">
                     <div class="card p-3">
                         <div class="label">Pendapatan</div>
-                        <div id="vPendapatan" class="value">Rp -</div>
+                        <div class="value">Rp {{ number_format($apbdes->pendapatan, 0, ',', '.') }}</div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card p-3">
                         <div class="label">Belanja</div>
-                        <div id="vBelanja" class="value">Rp -</div>
+                        <div class="value">Rp {{ number_format($apbdes->belanja, 0, ',', '.') }}</div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card p-3">
                         <div class="label">Pembiayaan (Netto)</div>
-                        <div id="vPembiayaan" class="value">Rp -</div>
+                        <div class="value">Rp {{ number_format($apbdes->pembiayaan_netto, 0, ',', '.') }}</div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card p-3">
                         <div class="label">SILPA/Defisit</div>
-                        <div id="vSilpa" class="value">Rp -</div>
+                        <div class="value">Rp {{ number_format($apbdes->silpa_defisit, 0, ',', '.') }}</div>
                     </div>
                 </div>
             </div>
@@ -151,11 +155,18 @@
                                         <th class="text-end">Anggaran</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tPendapatan"></tbody>
+                                <tbody>
+                                    @foreach ($apbdes->pendapatanRincian as $p)
+                                        <tr>
+                                            <td>{{ $p->uraian }}</td>
+                                            <td class="text-end">Rp {{ number_format($p->anggaran, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Total Pendapatan</th>
-                                        <th id="tPendapatanTotal" class="text-end">Rp -</th>
+                                        <th class="text-end">Rp {{ number_format($apbdes->pendapatan, 0, ',', '.') }}</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -173,11 +184,18 @@
                                         <th class="text-end">Anggaran</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tBelanja"></tbody>
+                                <tbody>
+                                    @foreach ($apbdes->belanjaRincian as $b)
+                                        <tr>
+                                            <td>{{ $b->bidang_kegiatan }}</td>
+                                            <td class="text-end">Rp {{ number_format($b->anggaran, 0, ',', '.') }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Total Belanja</th>
-                                        <th id="tBelanjaTotal" class="text-end">Rp -</th>
+                                        <th class="text-end">Rp {{ number_format($apbdes->belanja, 0, ',', '.') }}</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -188,260 +206,4 @@
         </div>
     </section>
 
-    <section class="section pt-0">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-7">
-                    <div class="p-3 p-lg-4 border apb-section h-100">
-                        <h3 class="h5 mb-3">Pratinjau Infografis</h3>
-                        <a id="imgLink" target="_blank" rel="noopener">
-                            <img id="imgInfo" class="img-fluid infografis"
-                                src="{{ asset('assets/img/apbdes/placeholder.png') }}" alt="Infografis APBDes">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="p-3 p-lg-4 border apb-section h-100">
-                        <h3 class="h5 mb-3">Dokumen Terkait</h3>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <a id="btnInfografis"
-                                    class="doc-card d-flex align-items-center p-3 text-decoration-none disabled"
-                                    target="_blank" rel="noopener">
-                                    <i class="bi bi-image fs-4 me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Lihat Infografis</div>
-                                        <small class="text-muted">Gambar</small>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-12">
-                                <a id="btnRealisasi1"
-                                    class="doc-card d-flex align-items-center p-3 text-decoration-none disabled"
-                                    target="_blank" rel="noopener">
-                                    <i class="bi bi-file-earmark-bar-graph fs-4 me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Realisasi Semester I</div>
-                                        <small class="text-muted">PDF</small>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-12">
-                                <a id="btnRealisasi2"
-                                    class="doc-card d-flex align-items-center p-3 text-decoration-none disabled"
-                                    target="_blank" rel="noopener">
-                                    <i class="bi bi-file-earmark-bar-graph fs-4 me-3"></i>
-                                    <div>
-                                        <div class="fw-semibold">Realisasi Akhir Tahun</div>
-                                        <small class="text-muted">PDF</small>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 @endsection
-
-{{-- Menyisipkan JavaScript khusus untuk halaman ini --}}
-@push('scripts')
-    <script>
-        const fmt = n => new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            maximumFractionDigits: 0
-        }).format(n || 0);
-
-        const els = {
-            tahun: document.getElementById('tahunSelect'),
-            vPendapatan: document.getElementById('vPendapatan'),
-            vBelanja: document.getElementById('vBelanja'),
-            vPembiayaan: document.getElementById('vPembiayaan'),
-            vSilpa: document.getElementById('vSilpa'),
-            tPendapatan: document.getElementById('tPendapatan'),
-            tBelanja: document.getElementById('tBelanja'),
-            tPendapatanTotal: document.getElementById('tPendapatanTotal'),
-            tBelanjaTotal: document.getElementById('tBelanjaTotal'),
-            btnAPB: document.getElementById('btnAPB'),
-            btnPerdes: document.getElementById('btnPerdes'),
-            btnLRA: document.getElementById('btnLRA'),
-            btnRealisasi1: document.getElementById('btnRealisasi1'),
-            btnRealisasi2: document.getElementById('btnRealisasi2'),
-            btnInfografis: document.getElementById('btnInfografis'),
-            imgInfo: document.getElementById('imgInfo'),
-            imgLink: document.getElementById('imgLink'),
-        };
-
-        // Data dummy berdasarkan struktur real APBDes Desa Ulukalo
-        let DB = {
-            "2025": {
-                "pendapatan": {
-                    "Pendapatan Asli Desa (PADes)": 25000000,
-                    "Dana Desa (DD)": 892450000,
-                    "Alokasi Dana Desa (ADD)": 485000000,
-                    "Dana Bagi Hasil Pajak & Retribusi": 58000000,
-                    "Hibah dan Bantuan Pihak Ketiga": 15000000,
-                    "Bunga Bank & Jasa Giro": 3500000,
-                    "Lain-lain Pendapatan Desa yang Sah": 8000000
-                },
-                "belanja": {
-                    "Bidang Penyelenggaraan Pemerintahan Desa": 685000000,
-                    "Bidang Pelaksanaan Pembangunan Desa": 580000000,
-                    "Bidang Pembinaan Kemasyarakatan": 145000000,
-                    "Bidang Pemberdayaan Masyarakat": 235000000,
-                    "Bidang Penanggulangan Bencana & Tak Terduga": 85000000
-                },
-                "pembiayaan": {
-                    "Penerimaan Pembiayaan": 195000000,
-                    "Pengeluaran Pembiayaan": 5000000
-                },
-                "dokumen": {
-                    "apbdes": "{{ asset('assets/docs/apbdes-2025.pdf') }}",
-                    "perdes": "{{ asset('assets/docs/perdes-apbdes-2025.pdf') }}",
-                    "laporan": "{{ asset('assets/docs/lra-2025.pdf') }}",
-                    "realisasi-sem1": "{{ asset('assets/docs/realisasi-sem1-2025.pdf') }}",
-                    "realisasi-sem2": "{{ asset('assets/docs/realisasi-sem2-2025.pdf') }}",
-                    "infografis": "{{ asset('assets/img/apbdes/infografis-2025.png') }}"
-                }
-            },
-            "2024": {
-                "pendapatan": {
-                    "Pendapatan Asli Desa (PADes)": 22500000,
-                    "Dana Desa (DD)": 865000000,
-                    "Alokasi Dana Desa (ADD)": 465000000,
-                    "Dana Bagi Hasil Pajak & Retribusi": 55000000,
-                    "Hibah dan Bantuan Pihak Ketiga": 12000000,
-                    "Bunga Bank & Jasa Giro": 3200000,
-                    "Lain-lain Pendapatan Desa yang Sah": 7500000
-                },
-                "belanja": {
-                    "Bidang Penyelenggaraan Pemerintahan Desa": 658000000,
-                    "Bidang Pelaksanaan Pembangunan Desa": 555000000,
-                    "Bidang Pembinaan Kemasyarakatan": 138000000,
-                    "Bidang Pemberdayaan Masyarakat": 225000000,
-                    "Bidang Penanggulangan Bencana & Tak Terduga": 80000000
-                },
-                "pembiayaan": {
-                    "Penerimaan Pembiayaan": 185000000,
-                    "Pengeluaran Pembiayaan": 5000000
-                },
-                "dokumen": {
-                    "apbdes": "{{ asset('assets/docs/apbdes-2024.pdf') }}",
-                    "perdes": "{{ asset('assets/docs/perdes-apbdes-2024.pdf') }}",
-                    "laporan": "{{ asset('assets/docs/lra-2024.pdf') }}",
-                    "realisasi-sem1": "{{ asset('assets/docs/realisasi-sem1-2024.pdf') }}",
-                    "realisasi-sem2": "{{ asset('assets/docs/realisasi-sem2-2024.pdf') }}",
-                    "infografis": "{{ asset('assets/img/apbdes/infografis-2024.png') }}"
-                }
-            },
-            "2021": {
-                "pendapatan": {
-                    "Pendapatan Asli Desa (PADes)": 18500000,
-                    "Dana Desa (DD)": 730000000,
-                    "Alokasi Dana Desa (ADD)": 425000000,
-                    "Dana Bagi Hasil Pajak & Retribusi": 45000000,
-                    "Hibah dan Bantuan Pihak Ketiga": 8000000,
-                    "Bunga Bank & Jasa Giro": 2500000,
-                    "Lain-lain Pendapatan Desa yang Sah": 5000000
-                },
-                "belanja": {
-                    "Bidang Penyelenggaraan Pemerintahan Desa": 490708300,
-                    "Bidang Pelaksanaan Pembangunan Desa": 730821492,
-                    "Bidang Pembinaan Kemasyarakatan": 106850000,
-                    "Bidang Pemberdayaan Masyarakat": 0,
-                    "Bidang Penanggulangan Bencana & Tak Terduga": 309096960
-                },
-                "pembiayaan": {
-                    "Penerimaan Pembiayaan": 194551792,
-                    "Pengeluaran Pembiayaan": 5000000
-                },
-                "dokumen": {
-                    "apbdes": "{{ asset('assets/docs/apbdes-2021.pdf') }}",
-                    "perdes": "{{ asset('assets/docs/perdes-apbdes-2021.pdf') }}",
-                    "laporan": "{{ asset('assets/docs/lra-2021.pdf') }}",
-                    "realisasi-sem1": "{{ asset('assets/docs/realisasi-sem1-2021.pdf') }}",
-                    "realisasi-sem2": "{{ asset('assets/docs/realisasi-sem2-2021.pdf') }}",
-                    "infografis": "{{ asset('assets/img/apbdes/infografis-2021.png') }}"
-                }
-            }
-        };
-
-        function sum(obj) {
-            return Object.values(obj || {}).reduce((a, b) => a + (+b || 0), 0);
-        }
-
-        function setHref(a, href) {
-            if (href) {
-                a.href = href;
-                a.classList.remove('disabled');
-                a.setAttribute('aria-disabled', 'false');
-            } else {
-                a.href = '#';
-                a.classList.add('disabled');
-                a.setAttribute('aria-disabled', 'true');
-            }
-        }
-
-        function renderYear(y) {
-            const d = DB[y] || {};
-            const pend = d.pendapatan || {};
-            const bel = d.belanja || {};
-            const pbi = d.pembiayaan || {
-                "Penerimaan Pembiayaan": 0,
-                "Pengeluaran Pembiayaan": 0
-            };
-
-            // cards
-            const totalPend = sum(pend);
-            const totalBel = sum(bel);
-            const netto = (+pbi["Penerimaan Pembiayaan"] || 0) - (+pbi["Pengeluaran Pembiayaan"] || 0);
-            const silpa = totalPend - totalBel + netto;
-
-            els.vPendapatan.textContent = fmt(totalPend);
-            els.vBelanja.textContent = fmt(totalBel);
-            els.vPembiayaan.textContent = fmt(netto);
-            els.vSilpa.textContent = fmt(silpa);
-
-            // tables
-            const trp = Object.entries(pend).map(([k, v]) => `<tr><td>${k}</td><td class="text-end">${fmt(v)}</td></tr>`)
-                .join('') || `<tr><td colspan="2" class="text-center text-muted">Belum ada data</td></tr>`;
-            const trb = Object.entries(bel).map(([k, v]) => `<tr><td>${k}</td><td class="text-end">${fmt(v)}</td></tr>`)
-                .join('') || `<tr><td colspan="2" class="text-center text-muted">Belum ada data</td></tr>`;
-            els.tPendapatan.innerHTML = trp;
-            els.tBelanja.innerHTML = trb;
-            els.tPendapatanTotal.textContent = fmt(totalPend);
-            els.tBelanjaTotal.textContent = fmt(totalBel);
-
-            // docs
-            const doc = d.dokumen || {};
-            setHref(els.btnAPB, doc.apbdes);
-            setHref(els.btnPerdes, doc.perdes);
-            setHref(els.btnLRA, doc.laporan || doc['lra']);
-            setHref(els.btnRealisasi1, doc['realisasi-sem1']);
-            setHref(els.btnRealisasi2, doc['realisasi-sem2']);
-            setHref(els.btnInfografis, doc.infografis);
-
-            if (doc.infografis) {
-                els.imgInfo.src = doc.infografis;
-                els.imgLink.href = doc.infografis;
-            } else {
-                els.imgInfo.src = `{{ asset('assets/img/apbdes/placeholder.png') }}`;
-                els.imgLink.href = '#';
-            }
-        }
-
-        function initYears() {
-            const years = Object.keys(DB).sort((a, b) => (+b) - (+a));
-            els.tahun.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
-            renderYear(years[0]);
-            els.tahun.value = years[0];
-            els.tahun.addEventListener('change', e => renderYear(e.target.value));
-        }
-
-        // Initialize langsung tanpa fetch
-        document.addEventListener('DOMContentLoaded', initYears);
-    </script>
-@endpush

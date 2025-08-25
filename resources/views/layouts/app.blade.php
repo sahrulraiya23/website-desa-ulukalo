@@ -75,7 +75,7 @@
                         </ul>
                     </li>
 
-                    <li><a href="{{ route('apbdes') }}#" class="{{-- request()->routeIs('apbdes') ? 'active' : '' --}}">APBDes</a></li>
+                    <li><a href="{{ route('apbdes.index') }}#" class="{{-- request()->routeIs('apbdes') ? 'active' : '' --}}">APBDes</a></li>
                     <li><a href="{{ route('surat') }}"
                             class="{{ request()->routeIs('surat') ? 'active' : '' }}">Layanan Surat</a></li>
                     <li><a href="{{ route('kontak') }}#" class="{{-- request()->routeIs('kontak') ? 'active' : '' --}}">Kontak</a></li>
