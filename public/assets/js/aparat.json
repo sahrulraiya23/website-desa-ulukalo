@@ -1,0 +1,98 @@
+[
+  {
+    "nama": "H. Ahmad Suryadi, S.Sos",
+    "jabatan": "Kepala Desa",
+    "dusun": "",
+    "foto": "assets/img/aparat/kepala-desa.jpg"
+  },
+  {
+    "nama": "Siti Nurhaliza, S.AP",
+    "jabatan": "Sekretaris Desa",
+    "dusun": "",
+    "foto": "assets/img/aparat/sekretaris-desa.jpg"
+  },
+  {
+    "nama": "Muhammad Rizki, A.Md",
+    "jabatan": "Kaur Keuangan",
+    "dusun": "",
+    "foto": "assets/img/aparat/kaur-keuangan.jpg"
+  },
+  {
+    "nama": "Dewi Sartika, S.Pd",
+    "jabatan": "Kaur Umum",
+    "dusun": "",
+    "foto": "assets/img/aparat/kaur-umum.jpg"
+  },
+  {
+    "nama": "Bambang Hermanto",
+    "jabatan": "Kaur Pembangunan",
+    "dusun": "",
+    "foto": "assets/img/aparat/kaur-pembangunan.jpg"
+  },
+  {
+    "nama": "Ratna Sari, S.Sos",
+    "jabatan": "Kasi Pemerintahan",
+    "dusun": "",
+    "foto": "assets/img/aparat/kasi-pemerintahan.jpg"
+  },
+  {
+    "nama": "Agus Setiawan",
+    "jabatan": "Kasi Kesejahteraan",
+    "dusun": "",
+    "foto": "assets/img/aparat/kasi-kesejahteraan.jpg"
+  },
+  {
+    "nama": "Indra Gunawan",
+    "jabatan": "Kasi Pelayanan",
+    "dusun": "",
+    "foto": "assets/img/aparat/kasi-pelayanan.jpg"
+  },
+  {
+    "nama": "Abdul Rahman",
+    "jabatan": "Kepala Dusun",
+    "dusun": "Dusun Mawar",
+    "foto": "assets/img/aparat/kadus-mawar.jpg"
+  },
+  {
+    "nama": "Hasan Basri",
+    "jabatan": "Kepala Dusun",
+    "dusun": "Dusun Melati",
+    "foto": "assets/img/aparat/kadus-melati.jpg"
+  },
+  {
+    "nama": "Wahyu Prasetyo",
+    "jabatan": "Kepala Dusun",
+    "dusun": "Dusun Cempaka",
+    "foto": "assets/img/aparat/kadus-cempaka.jpg"
+  },
+  {
+    "nama": "Sri Mulyani",
+    "jabatan": "Kepala Dusun",
+    "dusun": "Dusun Anggrek",
+    "foto": "assets/img/aparat/kadus-anggrek.jpg"
+  },
+  {
+    "nama": "Dedi Kurniawan",
+    "jabatan": "Kepala Dusun",
+    "dusun": "Dusun Kenanga",
+    "foto": "assets/img/aparat/kadus-kenanga.jpg"
+  },
+  {
+    "nama": "Fatimah Zahra",
+    "jabatan": "Kepala Dusun",
+    "dusun": "Dusun Dahlia",
+    "foto": "assets/img/aparat/kadus-dahlia.jpg"
+  },
+  {
+    "nama": "Lukman Hakim",
+    "jabatan": "Staff Administrasi",
+    "dusun": "",
+    "foto": "assets/img/aparat/staff-admin.jpg"
+  },
+  {
+    "nama": "Nurhayati",
+    "jabatan": "Staff Pelayanan",
+    "dusun": "",
+    "foto": "assets/img/aparat/staff-pelayanan.jpg"
+  }
+]
