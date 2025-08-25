@@ -1,0 +1,104 @@
+{
+  "profilDesa": {
+    "kabupaten": "KABUPATEN KOLAKA",
+    "kecamatan": "KECAMATAN IWOIMENDAA",
+    "desa": "DESA ULUKALO",
+    "alamatKantor": "Alamat Kantor: [isi alamat lengkap] • Kode Pos [____]"
+  },
+  "kepalaDesa": {
+    "nama": "NASRUDDIN, SH",
+    "nip": "NIP. -"
+  },
+  "camat": {
+    "nama": "[Nama Camat]",
+    "nip": "NIP. [__________]"
+  },
+  "jenis": {
+    "skbm": {
+      "nama": "Surat Keterangan Belum Menikah",
+      "template": "assets/surat/templates/SURAT KETERANGAN BELUM MENIKAH.pdf",
+      "fields": [
+        { "name": "nomor", "label": "Nomor Surat", "req": true },
+        { "name": "nama", "label": "Nama Lengkap", "req": true },
+        { "name": "ttl", "label": "Tempat Tanggal Lahir", "req": true },
+        { "name": "jk", "label": "Jenis Kelamin", "type": "select", "options": ["Laki-laki", "Perempuan"], "req": true },
+        { "name": "pekerjaan", "label": "Pekerjaan" },
+        { "name": "agama", "label": "Agama" },
+        { "name": "alamat", "label": "Alamat", "type": "textarea", "req": true },
+        { "name": "tanggal", "label": "Tanggal Surat", "type": "date", "req": true }
+      ]
+    },
+    "skbb": {
+      "nama": "Surat Keterangan Berkelakuan Baik",
+      "template": "assets/surat/templates/SURAT KETERANGAN BERKELAKUAN BAIK.pdf",
+      "fields": [
+        { "name": "nomor", "label": "Nomor Surat", "req": true },
+
+        { "name": "pen_nama", "label": "(Penandatangan) Nama", "req": true, "placeholder": "mis. NASRUDDIN, SH" },
+        { "name": "pen_umur", "label": "(Penandatangan) Umur" },
+        { "name": "pen_jabatan", "label": "(Penandatangan) Pekerjaan/Jabatan", "req": true, "placeholder": "Kepala Desa Ulukalo" },
+
+        { "name": "nama", "label": "(Subjek) Nama", "req": true },
+        { "name": "ttl", "label": "(Subjek) Tempat/Tgl Lahir", "req": true },
+        { "name": "nik", "label": "(Subjek) NIK", "req": true },
+        { "name": "jk", "label": "(Subjek) Jenis Kelamin", "type": "select", "options": ["Laki-laki", "Perempuan"], "req": true },
+        { "name": "maksud", "label": "Maksud/Tujuan", "req": true },
+        { "name": "alamat", "label": "(Subjek) Alamat", "type": "textarea", "req": true },
+
+        { "name": "tanggal", "label": "Tanggal Surat", "type": "date", "req": true },
+        { "name": "camat_nama", "label": "(Mengetahui) Camat", "placeholder": "[Nama Camat]" },
+        { "name": "camat_nip", "label": "(Mengetahui) NIP Camat", "placeholder": "NIP. [__________]" }
+      ]
+    },
+    "sktm": {
+      "nama": "Surat Keterangan Tidak Mampu",
+      "template": "assets/surat/templates/SURAT KETERANGAN TIDAK MAMPU.pdf",
+      "fields": [
+        { "name": "nomor", "label": "Nomor Surat", "req": true },
+        { "name": "nama", "label": "Nama Lengkap", "req": true },
+        { "name": "jk", "label": "Jenis Kelamin", "type": "select", "options": ["Laki-laki", "Perempuan"], "req": true },
+        { "name": "ttl", "label": "Tempat Tanggal Lahir", "req": true },
+        { "name": "pekerjaan", "label": "Pekerjaan" },
+        { "name": "alamat", "label": "Alamat", "type": "textarea", "req": true },
+        { "name": "tanggal", "label": "Tanggal Surat", "type": "date", "req": true }
+      ]
+    },
+    "sku": {
+      "nama": "Surat Keterangan Usaha",
+      "template": "assets/surat/templates/SURAT KETERANGAN USAHA.pdf",
+      "fields": [
+        { "name": "nomor", "label": "Nomor Surat", "req": true },
+        { "name": "nama", "label": "Nama Lengkap", "req": true },
+        { "name": "ttl", "label": "Tempat dan Tgl Lahir", "req": true },
+        { "name": "alamat", "label": "Alamat", "type": "textarea", "req": true },
+        { "name": "dusun", "label": "Dusun", "req": true },
+        { "name": "nik", "label": "Nomor KTP", "req": true },
+        { "name": "domisili", "label": "Domisili Sejak Tahun", "placeholder": "mis. 2017", "req": true },
+
+        { "name": "sektor_pertanian", "label": "Sektor: Pertanian (isi spesifikasi)" },
+        { "name": "sektor_industri", "label": "Sektor: Industri (isi spesifikasi)" },
+        { "name": "sektor_perdagangan", "label": "Sektor: Perdagangan (isi spesifikasi)" },
+        { "name": "sektor_jasa", "label": "Sektor: Jasa & Dunia Usaha (isi spesifikasi)" },
+
+        { "name": "tanggal", "label": "Tanggal Surat", "type": "date", "req": true }
+      ]
+    },
+    "sptjm": {
+      "nama": "Surat Pernyataan Tanggung Jawab Mutlak",
+      "template": "assets/surat/templates/SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK.pdf",
+      "fields": [
+        { "name": "nomor", "label": "Nomor Surat", "req": true },
+
+        { "name": "pen_nama", "label": "Nama (Yang Menyatakan)", "req": true },
+        { "name": "pen_jabatan", "label": "Jabatan (Yang Menyatakan)", "req": true },
+        { "name": "pen_alamat", "label": "Alamat (Yang Menyatakan)", "type": "textarea", "req": true },
+
+        { "name": "subjek_nama", "label": "Nama Penduduk", "req": true },
+        { "name": "subjek_nik", "label": "NIK Penduduk", "req": true },
+        { "name": "subjek_nokk", "label": "Nomor KK Penduduk", "req": true },
+
+        { "name": "tanggal", "label": "Tanggal Surat", "type": "date", "req": true }
+      ]
+    }
+  }
+}
