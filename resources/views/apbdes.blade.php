@@ -275,7 +275,99 @@
             imgLink: document.getElementById('imgLink'),
         };
 
-        let DB = {};
+        // Data dummy berdasarkan struktur real APBDes Desa Ulukalo
+        let DB = {
+            "2025": {
+                "pendapatan": {
+                    "Pendapatan Asli Desa (PADes)": 25000000,
+                    "Dana Desa (DD)": 892450000,
+                    "Alokasi Dana Desa (ADD)": 485000000,
+                    "Dana Bagi Hasil Pajak & Retribusi": 58000000,
+                    "Hibah dan Bantuan Pihak Ketiga": 15000000,
+                    "Bunga Bank & Jasa Giro": 3500000,
+                    "Lain-lain Pendapatan Desa yang Sah": 8000000
+                },
+                "belanja": {
+                    "Bidang Penyelenggaraan Pemerintahan Desa": 685000000,
+                    "Bidang Pelaksanaan Pembangunan Desa": 580000000,
+                    "Bidang Pembinaan Kemasyarakatan": 145000000,
+                    "Bidang Pemberdayaan Masyarakat": 235000000,
+                    "Bidang Penanggulangan Bencana & Tak Terduga": 85000000
+                },
+                "pembiayaan": {
+                    "Penerimaan Pembiayaan": 195000000,
+                    "Pengeluaran Pembiayaan": 5000000
+                },
+                "dokumen": {
+                    "apbdes": "{{ asset('assets/docs/apbdes-2025.pdf') }}",
+                    "perdes": "{{ asset('assets/docs/perdes-apbdes-2025.pdf') }}",
+                    "laporan": "{{ asset('assets/docs/lra-2025.pdf') }}",
+                    "realisasi-sem1": "{{ asset('assets/docs/realisasi-sem1-2025.pdf') }}",
+                    "realisasi-sem2": "{{ asset('assets/docs/realisasi-sem2-2025.pdf') }}",
+                    "infografis": "{{ asset('assets/img/apbdes/infografis-2025.png') }}"
+                }
+            },
+            "2024": {
+                "pendapatan": {
+                    "Pendapatan Asli Desa (PADes)": 22500000,
+                    "Dana Desa (DD)": 865000000,
+                    "Alokasi Dana Desa (ADD)": 465000000,
+                    "Dana Bagi Hasil Pajak & Retribusi": 55000000,
+                    "Hibah dan Bantuan Pihak Ketiga": 12000000,
+                    "Bunga Bank & Jasa Giro": 3200000,
+                    "Lain-lain Pendapatan Desa yang Sah": 7500000
+                },
+                "belanja": {
+                    "Bidang Penyelenggaraan Pemerintahan Desa": 658000000,
+                    "Bidang Pelaksanaan Pembangunan Desa": 555000000,
+                    "Bidang Pembinaan Kemasyarakatan": 138000000,
+                    "Bidang Pemberdayaan Masyarakat": 225000000,
+                    "Bidang Penanggulangan Bencana & Tak Terduga": 80000000
+                },
+                "pembiayaan": {
+                    "Penerimaan Pembiayaan": 185000000,
+                    "Pengeluaran Pembiayaan": 5000000
+                },
+                "dokumen": {
+                    "apbdes": "{{ asset('assets/docs/apbdes-2024.pdf') }}",
+                    "perdes": "{{ asset('assets/docs/perdes-apbdes-2024.pdf') }}",
+                    "laporan": "{{ asset('assets/docs/lra-2024.pdf') }}",
+                    "realisasi-sem1": "{{ asset('assets/docs/realisasi-sem1-2024.pdf') }}",
+                    "realisasi-sem2": "{{ asset('assets/docs/realisasi-sem2-2024.pdf') }}",
+                    "infografis": "{{ asset('assets/img/apbdes/infografis-2024.png') }}"
+                }
+            },
+            "2021": {
+                "pendapatan": {
+                    "Pendapatan Asli Desa (PADes)": 18500000,
+                    "Dana Desa (DD)": 730000000,
+                    "Alokasi Dana Desa (ADD)": 425000000,
+                    "Dana Bagi Hasil Pajak & Retribusi": 45000000,
+                    "Hibah dan Bantuan Pihak Ketiga": 8000000,
+                    "Bunga Bank & Jasa Giro": 2500000,
+                    "Lain-lain Pendapatan Desa yang Sah": 5000000
+                },
+                "belanja": {
+                    "Bidang Penyelenggaraan Pemerintahan Desa": 490708300,
+                    "Bidang Pelaksanaan Pembangunan Desa": 730821492,
+                    "Bidang Pembinaan Kemasyarakatan": 106850000,
+                    "Bidang Pemberdayaan Masyarakat": 0,
+                    "Bidang Penanggulangan Bencana & Tak Terduga": 309096960
+                },
+                "pembiayaan": {
+                    "Penerimaan Pembiayaan": 194551792,
+                    "Pengeluaran Pembiayaan": 5000000
+                },
+                "dokumen": {
+                    "apbdes": "{{ asset('assets/docs/apbdes-2021.pdf') }}",
+                    "perdes": "{{ asset('assets/docs/perdes-apbdes-2021.pdf') }}",
+                    "laporan": "{{ asset('assets/docs/lra-2021.pdf') }}",
+                    "realisasi-sem1": "{{ asset('assets/docs/realisasi-sem1-2021.pdf') }}",
+                    "realisasi-sem2": "{{ asset('assets/docs/realisasi-sem2-2021.pdf') }}",
+                    "infografis": "{{ asset('assets/img/apbdes/infografis-2021.png') }}"
+                }
+            }
+        };
 
         function sum(obj) {
             return Object.values(obj || {}).reduce((a, b) => a + (+b || 0), 0);
@@ -298,15 +390,15 @@
             const pend = d.pendapatan || {};
             const bel = d.belanja || {};
             const pbi = d.pembiayaan || {
-                "Penerimaan": 0,
-                "Pengeluaran": 0
+                "Penerimaan Pembiayaan": 0,
+                "Pengeluaran Pembiayaan": 0
             };
 
             // cards
             const totalPend = sum(pend);
             const totalBel = sum(bel);
-            const netto = (+pbi["Penerimaan"] || 0) - (+pbi["Pengeluaran"] || 0);
-            const silpa = totalPend + (+pbi["Penerimaan"] || 0) - (+pbi["Pengeluaran"] || 0) - totalBel;
+            const netto = (+pbi["Penerimaan Pembiayaan"] || 0) - (+pbi["Pengeluaran Pembiayaan"] || 0);
+            const silpa = totalPend - totalBel + netto;
 
             els.vPendapatan.textContent = fmt(totalPend);
             els.vBelanja.textContent = fmt(totalBel);
@@ -336,7 +428,6 @@
                 els.imgInfo.src = doc.infografis;
                 els.imgLink.href = doc.infografis;
             } else {
-                // Menggunakan helper asset() untuk path gambar placeholder
                 els.imgInfo.src = `{{ asset('assets/img/apbdes/placeholder.png') }}`;
                 els.imgLink.href = '#';
             }
@@ -344,43 +435,13 @@
 
         function initYears() {
             const years = Object.keys(DB).sort((a, b) => (+b) - (+a));
-            if (years.length === 0) {
-                // Jika JSON kosong, buat data dummy untuk tahun ini
-                const now = new Date().getFullYear();
-                DB[now] = {
-                    pendapatan: {},
-                    belanja: {},
-                    pembiayaan: {},
-                    dokumen: {}
-                };
-                // Menambahkan path dinamis ke dokumen dummy
-                const docs = DB[now].dokumen;
-                docs.apbdes = `{{ asset('assets/docs/apbdes-') }}${now}.pdf`;
-                docs.perdes = `{{ asset('assets/docs/perdes-apbdes-') }}${now}.pdf`;
-                docs['realisasi-sem1'] = `{{ asset('assets/docs/realisasi-sem1-') }}${now}.pdf`;
-                docs['realisasi-sem2'] = `{{ asset('assets/docs/realisasi-sem2-') }}${now}.pdf`;
-                docs.laporan = `{{ asset('assets/docs/lra-') }}${now}.pdf`;
-                docs.infografis = `{{ asset('assets/img/apbdes/infografis-') }}${now}.png`;
-                years.push(now.toString());
-            }
-
             els.tahun.innerHTML = years.map(y => `<option value="${y}">${y}</option>`).join('');
             renderYear(years[0]);
             els.tahun.value = years[0];
             els.tahun.addEventListener('change', e => renderYear(e.target.value));
         }
 
-        // Menggunakan helper asset() untuk path file JSON
-        fetch(`{{ asset('assets/js/apbdes.json') }}`)
-            .then(r => r.ok ? r.json() : Promise.reject())
-            .then(json => {
-                DB = json || {};
-                initYears();
-            })
-            .catch((err) => {
-                console.error("Gagal memuat apbdes.json. Menampilkan data dummy.", err);
-                DB = {};
-                initYears();
-            });
+        // Initialize langsung tanpa fetch
+        document.addEventListener('DOMContentLoaded', initYears);
     </script>
 @endpush
