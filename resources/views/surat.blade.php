@@ -75,8 +75,12 @@
 
         .ttd {
             width: 260px;
-            float: right;
-            margin-top: 28px
+        }
+
+        .ttd-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 28px;
         }
 
         .ttd .nm {
@@ -92,6 +96,10 @@
         .form-floating>.form-control,
         .form-select {
             height: 52px
+        }
+
+        .loading {
+            display: none;
         }
 
         @media print {
@@ -115,7 +123,6 @@
         }
     </style>
 @endpush
-
 
 @section('content')
 
@@ -189,8 +196,13 @@
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <h3 class="h5 mb-0">Hasil Surat</h3>
                 <div class="no-print d-flex gap-2">
-                    <button id="btnUnduh" class="btn btn-dark" type="button"><i class="bi bi-filetype-pdf me-1"></i>Unduh
-                        PDF</button>
+                    <button id="btnUnduh" class="btn btn-dark" type="button">
+                        <i class="bi bi-filetype-pdf me-1"></i>
+                        <span class="btn-text">Unduh PDF</span>
+                        <span class="loading">
+                            <i class="bi bi-arrow-clockwise spin me-1"></i>Memproses...
+                        </span>
+                    </button>
                     <button id="btnCetak" class="btn btn-outline-dark" type="button"><i
                             class="bi bi-printer me-1"></i>Cetak</button>
                 </div>
@@ -203,16 +215,30 @@
 
 @endsection
 
-
 @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-        referrerpolicy="no-referrer"></script>
+    <style>
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+    </style>
 
     <script>
+        // CSRF Token untuk Laravel
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
         // Konfigurasi diambil dari data yang dikirim oleh Controller
         let CFG = {!! $suratConfigJson !!};
 
-        // (Seluruh kode JavaScript dari file HTML Anda sebelumnya, ditempel di sini)
         // ===== Util =====
         const $ = s => document.querySelector(s);
         const el = id => document.getElementById(id);
@@ -277,11 +303,23 @@
             });
             el('btnCetak').addEventListener('click', () => window.print());
             el('btnUnduh').addEventListener('click', unduhPDF);
+
+            // Tambahkan button alternative untuk fallback
+            const btnUnduhAlt = document.createElement('button');
+            btnUnduhAlt.className = 'btn btn-outline-dark';
+            btnUnduhAlt.innerHTML = '<i class="bi bi-download me-1"></i>Unduh (Alt)';
+            btnUnduhAlt.style.display = 'none';
+            btnUnduhAlt.addEventListener('click', unduhPDFForm);
+            el('btnUnduh').parentNode.insertBefore(btnUnduhAlt, el('btnUnduh').nextSibling);
+
+            // Show alternative button if AJAX fails
+            window.showAltDownload = () => {
+                btnUnduhAlt.style.display = 'inline-block';
+            };
             const first = Object.keys(CFG.jenis)[0] || "sku";
             setCurrent(first, true);
         }
 
-        // ... (Sisa kode JavaScript dari file HTML Anda ditempel di sini, dari function setCurrent sampai akhir)
         function setCurrent(key, updatePreview = true) {
             current = key;
             el('jenisSelect').value = key;
@@ -384,94 +422,212 @@
             return data;
         }
 
-        function renderHasil() {
+        // Render hasil menggunakan AJAX ke Laravel
+        async function renderHasil() {
             const form = el('formSurat');
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
-            const meta = CFG.jenis[current],
-                P = CFG.profilDesa,
-                K = CFG.kepalaDesa;
-            const Camat = CFG.camat || {};
-            const d = formDataObj();
-            const kop =
-                `<div class="kop-desa"><div class="sub">PEMERINTAH ${P.kabupaten||'KABUPATEN …'}</div><div class="sub">${P.kecamatan||'KECAMATAN …'}</div><div class="title">${P.desa||'DESA …'}</div><div class="addr">${P.alamatKantor||'Alamat Kantor …'}</div></div>`;
-            let body = '';
-            if (current === 'sku') {
-                body =
-                    `<div class="judul-surat">SURAT KETERANGAN USAHA</div><div class="nomor-surat">Nomor: ${d.nomor||'-'}</div><p>Yang bertanda tangan di bawah ini, Kepala ${P.desa||'Desa'}, menerangkan bahwa:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama</td><td>: ${d.nama||'-'}</td></tr><tr><td>Tempat/Tgl Lahir</td><td>: ${d.ttl||'-'}</td></tr><tr><td>Alamat</td><td>: ${d.alamat||'-'}</td></tr><tr><td>Dusun</td><td>: ${d.dusun||'-'}</td></tr><tr><td>Nomor KTP</td><td>: ${d.nik||'-'}</td></tr><tr><td>Domisili Sejak Tahun</td><td>: ${d.domisili||'-'}</td></tr></table><p>Benar yang bersangkutan memiliki/mengelola usaha pada sektor:</p><ul style="margin-top:-6px">${d.sektor_pertanian?`<li>Pertanian: ${d.sektor_pertanian}</li>`:''}${d.sektor_industri?`<li>Industri: ${d.sektor_industri}</li>`:''}${d.sektor_perdagangan?`<li>Perdagangan: ${d.sektor_perdagangan}</li>`:''}${d.sektor_jasa?`<li>Jasa & Dunia Usaha: ${d.sektor_jasa}</li>`:''}</ul><p>Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya.</p>${ttdBlock(d.tanggal, P.desa, K)}`;
-            } else if (current === 'sktm') {
-                body =
-                    `<div class="judul-surat">SURAT KETERANGAN TIDAK MAMPU</div><div class="nomor-surat">Nomor: ${d.nomor||'-'}</div><p>Yang bertanda tangan di bawah ini, Kepala ${P.desa||'Desa'}, menerangkan bahwa:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama</td><td>: ${d.nama||'-'}</td></tr><tr><td>Jenis Kelamin</td><td>: ${d.jk||'-'}</td></tr><tr><td>Tempat/Tgl Lahir</td><td>: ${d.ttl||'-'}</td></tr><tr><td>Pekerjaan</td><td>: ${d.pekerjaan||'-'}</td></tr><tr><td>Alamat</td><td>: ${d.alamat||'-'}</td></tr></table><p>Berdasarkan keterangan RT/RW setempat, yang bersangkutan benar berasal dari keluarga yang <b>tidak mampu</b>.</p><p>Demikian surat keterangan ini dibuat agar dapat dipergunakan sebagaimana mestinya.</p>${ttdBlock(d.tanggal, P.desa, K)}`;
-            } else if (current === 'skbb') {
-                body =
-                    `<div class="judul-surat">SURAT KETERANGAN BERKELAKUAN BAIK</div><div class="nomor-surat">Nomor: ${d.nomor||'-'}</div><p>Yang bertanda tangan di bawah ini:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama</td><td>: ${d.pen_nama||'-'}</td></tr>${d.pen_umur?`<tr><td>Umur</td><td>: ${d.pen_umur}</td></tr>`:''}<tr><td>Pekerjaan/Jabatan</td><td>: ${d.pen_jabatan||'-'}</td></tr></table><p>Dengan ini menerangkan bahwa:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama</td><td>: ${d.nama||'-'}</td></tr><tr><td>Tempat/Tgl Lahir</td><td>: ${d.ttl||'-'}</td></tr><tr><td>NIK</td><td>: ${d.nik||'-'}</td></tr><tr><td>Jenis Kelamin</td><td>: ${d.jk||'-'}</td></tr><tr><td>Alamat</td><td>: ${d.alamat||'-'}</td></tr></table><p>Sepanjang pengetahuan kami, yang bersangkutan <b>berkelakuan baik</b> dan tidak pernah terlibat tindak pidana. Surat keterangan ini dibuat untuk keperluan: <b>${d.maksud||'-'}</b>.</p>${ttdBlock(d.tanggal, P.desa, K)}<div style="clear:both"></div><div style="margin-top:40px"><div>Mengetahui,</div><div>Camat ${P.kecamatan?.replace(/^KECAMATAN\s+/,'')||'...'}</div><div style="margin-top:68px;text-decoration:underline;font-weight:700">${d.camat_nama||Camat.nama||'[Nama Camat]'}</div><div>${d.camat_nip||Camat.nip||'NIP. -'}</div></div>`;
-            } else if (current === 'skbm') {
-                body =
-                    `<div class="judul-surat">SURAT KETERANGAN BELUM MENIKAH</div><div class="nomor-surat">Nomor: ${d.nomor||'-'}</div><p>Yang bertanda tangan di bawah ini, Kepala ${P.desa||'Desa'}, menerangkan bahwa:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama</td><td>: ${d.nama||'-'}</td></tr><tr><td>Tempat/Tgl Lahir</td><td>: ${d.ttl||'-'}</td></tr><tr><td>Jenis Kelamin</td><td>: ${d.jk||'-'}</td></tr><tr><td>Pekerjaan</td><td>: ${d.pekerjaan||'-'}</td></tr><tr><td>Agama</td><td>: ${d.agama||'-'}</td></tr><tr><td>Alamat</td><td>: ${d.alamat||'-'}</td></tr></table><p>Hingga surat ini dikeluarkan, yang bersangkutan tercatat <b>belum menikah</b>.</p><p>Demikian surat keterangan ini dibuat agar dipergunakan sebagaimana mestinya.</p>${ttdBlock(d.tanggal, P.desa, K)}`;
-            } else if (current === 'sptjm') {
-                body =
-                    `<div class="judul-surat">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK</div><div class="nomor-surat">Nomor: ${d.nomor||'-'}</div><p>Saya yang bertanda tangan di bawah ini:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama</td><td>: ${d.pen_nama||'-'}</td></tr><tr><td>Jabatan</td><td>: ${d.pen_jabatan||'-'}</td></tr><tr><td>Alamat</td><td>: ${d.pen_alamat||'-'}</td></tr></table><p>Dengan ini menyatakan bertanggung jawab penuh atas keabsahan data berikut:</p><table style="width:100%;margin-left:6px"><tr><td style="width:190px">Nama Penduduk</td><td>: ${d.subjek_nama||'-'}</td></tr><tr><td>NIK</td><td>: ${d.subjek_nik||'-'}</td></tr><tr><td>No. KK</td><td>: ${d.subjek_nokk||'-'}</td></tr></table><p>Apabila di kemudian hari terdapat ketidaksesuaian, saya bersedia menanggung segala akibat hukum yang timbul.</p>${ttdBlock(d.tanggal, P.desa, K)}`;
-            }
-            el('hasilSurat').innerHTML = kop + body;
-        }
 
-        function ttdBlock(tanggal, desa, K) {
-            const tgl = tanggal ? formatTanggalID(tanggal) : new Date().toLocaleDateString('id-ID', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-            return `<div class="ttd"><div>${desa||'Desa …'}, ${tgl}</div><div>KEPALA DESA</div><div class="nm">${K.nama||'[Nama Kepala Desa]'}</div><div class="nip">${K.nip||'NIP. -'}</div></div><div style="clear:both"></div>`;
-        }
-
-        function formatTanggalID(iso) {
             try {
-                const d = new Date(iso);
-                return d.toLocaleDateString('id-ID', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
+                const formData = new FormData(form);
+                formData.append('jenis', current);
+
+                const response = await fetch('{{ route('surat.preview') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: formData
                 });
-            } catch (e) {
-                return iso;
+
+                const result = await response.json();
+
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                el('hasilSurat').innerHTML = result.html;
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan: ' + error.message);
             }
         }
 
-        function unduhPDF() {
-            const jenis = (CFG.jenis[current] || {}).nama || toTitle(current);
-            const d = formDataObj();
-            const nama = ((d.nama || d.subjek_nama || 'warga') + '').toLowerCase().trim().replace(/\s+/g, '-').replace(
-                /[^a-z0-9-]/g, '');
-            const nom = (d.nomor || '').replace(/[^\d]/g, '');
-            const fname = `${jenis.replace(/\s+/g,'-').toLowerCase()}-${nama}${nom?('-'+nom):''}.pdf`;
+        // Download PDF menggunakan Laravel DomPDF
+        async function unduhPDF() {
+            const form = el('formSurat');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
             const area = el('hasilSurat');
             if (!area || area.textContent.trim().startsWith('Hasil akan')) {
                 alert('Silakan klik "Lihat Hasil" dulu.');
                 return;
             }
-            const opt = {
-                margin: 20,
-                filename: fname,
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
+
+            // Show loading state
+            const btn = el('btnUnduh');
+            const btnText = btn.querySelector('.btn-text');
+            const loading = btn.querySelector('.loading');
+
+            btnText.style.display = 'none';
+            loading.style.display = 'inline';
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData(form);
+                formData.append('jenis', current);
+
+                console.log('Sending request to:', '{{ route('surat.pdf') }}');
+                console.log('Form data:', Object.fromEntries(formData));
+
+                const response = await fetch('{{ route('surat.pdf') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/pdf'
+                    },
+                    body: formData
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+
+                if (!response.ok) {
+                    // Try to get error message from response
+                    let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+                    try {
+                        const errorText = await response.text();
+                        console.log('Error response:', errorText);
+
+                        // Check if it's JSON error response
+                        try {
+                            const errorJson = JSON.parse(errorText);
+                            if (errorJson.message) {
+                                errorMessage = errorJson.message;
+                            }
+                        } catch (e) {
+                            // If not JSON, use first 200 chars of error text
+                            if (errorText.length > 0) {
+                                errorMessage = errorText.substring(0, 200) + (errorText.length > 200 ? '...' : '');
+                            }
+                        }
+                    } catch (e) {
+                        console.log('Could not read error response:', e);
+                    }
+                    throw new Error(errorMessage);
                 }
-            };
-            html2pdf().from(area).set(opt).save();
+
+                // Check content type
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/pdf')) {
+                    console.log('Unexpected content type:', contentType);
+                    const text = await response.text();
+                    console.log('Response body:', text);
+                    throw new Error('Server tidak mengembalikan file PDF. Content-Type: ' + contentType);
+                }
+
+                // Get filename from response headers
+                const contentDisposition = response.headers.get('content-disposition');
+                let filename = 'surat.pdf';
+                if (contentDisposition) {
+                    const filenameMatch = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                    if (filenameMatch) {
+                        filename = filenameMatch[1].replace(/['"]/g, '');
+                    }
+                }
+
+                console.log('Downloading as:', filename);
+
+                // Download file
+                const blob = await response.blob();
+                console.log('Blob size:', blob.size, 'bytes');
+
+                if (blob.size === 0) {
+                    throw new Error('File PDF kosong');
+                }
+
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+
+                console.log('Download completed successfully');
+
+            } catch (error) {
+                console.error('PDF Download Error:', error);
+                alert('Terjadi kesalahan saat mengunduh PDF:\n\n' + error.message +
+                    '\n\nSilakan coba tombol "Unduh (Alt)" atau periksa console browser untuk detail lebih lanjut.');
+
+                // Show alternative download button
+                if (window.showAltDownload) {
+                    window.showAltDownload();
+                }
+            } finally {
+                // Reset button state
+                btnText.style.display = 'inline';
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }
         }
 
-        // Panggil init setelah DOM siap
+        // Alternative download method jika AJAX tidak bekerja
+        function unduhPDFForm() {
+            const form = el('formSurat');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const area = el('hasilSurat');
+            if (!area || area.textContent.trim().startsWith('Hasil akan')) {
+                alert('Silakan klik "Lihat Hasil" dulu.');
+                return;
+            }
+
+            // Buat form baru untuk submit
+            const downloadForm = document.createElement('form');
+            downloadForm.method = 'POST';
+            downloadForm.action = '{{ route('surat.pdf') }}';
+            downloadForm.style.display = 'none';
+
+            // Add CSRF token
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            downloadForm.appendChild(csrfInput);
+
+            // Add jenis
+            const jenisInput = document.createElement('input');
+            jenisInput.type = 'hidden';
+            jenisInput.name = 'jenis';
+            jenisInput.value = current;
+            downloadForm.appendChild(jenisInput);
+
+            // Copy all form data
+            const formData = new FormData(form);
+            for (const [key, value] of formData.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                downloadForm.appendChild(input);
+            }
+
+            document.body.appendChild(downloadForm);
+            downloadForm.submit();
+            document.body.removeChild(downloadForm);
+        }
         document.addEventListener('DOMContentLoaded', init);
     </script>
 @endpush
