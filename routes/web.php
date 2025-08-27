@@ -4,8 +4,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ApbdesController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\ApbdesController;
+use App\Http\Controllers\AparatDesaController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -16,7 +17,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/potensi', 'potensi')->name('potensi');
     Route::get('/surat', 'surat')->name('surat');
     Route::get('/kontak', 'kontak')->name('kontak');
-    Route::get('/pemerintahan', 'pemerintahan')->name('pemerintahan');
+    // Route::get('/pemerintahan', 'pemerintahan')->name('pemerintahan');
     // Route::get('/apbdes', 'apbdes')->name('apbdes');
     Route::post('/surat/preview', [HomeController::class, 'previewSurat'])->name('surat.preview');
     Route::post('/surat/pdf', [HomeController::class, 'generateSuratPdf'])->name('surat.pdf');
@@ -24,6 +25,8 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 Route::get('/apbdes', [ApbdesController::class, 'index'])->name('apbdes.index');
+Route::get('/aparat-desa', [AparatDesaController::class, 'index'])->name('aparat-desa.index');
+
 Route::get('/debug/pdf', function () {
     return response()->json([
         'dompdf_installed' => class_exists('Barryvdh\DomPDF\Facade\Pdf'),

@@ -68,11 +68,11 @@
 
                     {{-- Dropdown Pemerintahan (Asumsi nama rute 'pemerintahan') --}}
                     <li class="dropdown">
-                        <a href="#" class="{{ request()->routeIs(['pemerintahan']) ? 'active' : '' }}">
+                        <a href="#" class="{{ request()->routeIs(['aparat-desa']) ? 'active' : '' }}">
                             <span>Pemerintahan</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
                         </a>
                         <ul>
-                            <li><a href="{{ route('pemerintahan') }}#">Aparat Desa &amp; Kadus</a></li>
+                            <li><a href="{{ route('aparat-desa.index') }}">Aparat Desa &amp; Kadus</a></li>
                         </ul>
                     </li>
 
