@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Log;
+use App\Models\ArsipSurat;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -147,6 +149,8 @@ class HomeController extends Controller
 
         return $filename;
     }
+
+
     public function generateSuratPdf(Request $request)
     {
         try {
@@ -225,12 +229,30 @@ class HomeController extends Controller
                     throw new \Exception('PDF output kosong');
                 }
 
-                Log::info('PDF generated successfully', [
-                    'pdf_size' => strlen($pdfOutput)
+                $filename = $this->generateSafeFilename($jenis, $data, $suratConfig);
+
+                // --- PERUBAHAN DIMULAI DI SINI ---
+
+                // 1. Simpan file PDF ke storage
+                $filePath = 'surat-arsip/' . $filename;
+                Storage::disk('public')->put($filePath, $pdfOutput);
+
+                // 2. Simpan data ke database
+                ArsipSurat::create([
+                    'jenis_surat' => $suratConfig['jenis'][$jenis]['nama'] ?? 'Tidak Diketahui',
+                    'nomor_surat' => $data['nomor'] ?? 'Tidak ada nomor',
+                    'nama_pemohon' => $data['nama'] ?? $data['subjek_nama'] ?? 'Tidak ada nama',
+                    'data_pemohon' => json_encode($data),
+                    'file_path' => $filePath,
                 ]);
 
-                // Generate filename yang aman
-                $filename = $this->generateSafeFilename($jenis, $data, $suratConfig);
+                // --- PERUBAHAN SELESAI ---
+
+
+                Log::info('PDF generated and archived successfully', [
+                    'pdf_size' => strlen($pdfOutput),
+                    'file_path' => $filePath
+                ]);
 
                 // Return dengan headers yang benar
                 return response($pdfOutput, 200, [
