@@ -822,14 +822,20 @@ class HomeController extends Controller
      */
     private function generateKopSurat($profilDesa)
     {
+        $logo = asset('assets/img/logo_kolaka.png'); // untuk preview web
+        // kalau dipakai di PDF DomPDF ganti jadi public_path() + "file://"
+
         return '
-        <div class="kop-desa">
-            <div class="sub">PEMERINTAH ' . strtoupper($profilDesa['kabupaten'] ?? 'KABUPATEN …') . '</div>
-            <div class="sub">' . strtoupper($profilDesa['kecamatan'] ?? 'KECAMATAN …') . '</div>
-            <div class="title">' . strtoupper($profilDesa['desa'] ?? 'DESA …') . '</div>
-            <div class="addr">' . ($profilDesa['alamatKantor'] ?? 'Alamat Kantor …') . '</div>
-        </div>';
+    <div class="kop-desa" style="position: relative; text-align: center;">
+        <img src="' . $logo . '" alt="Logo Kolaka" 
+             style="position: absolute; left: 0; top: 5px; width: 80px; height: auto;">
+        <div class="sub">PEMERINTAH ' . strtoupper($profilDesa['kabupaten'] ?? 'KABUPATEN …') . '</div>
+        <div class="sub">' . strtoupper($profilDesa['kecamatan'] ?? 'KECAMATAN …') . '</div>
+        <div class="title">' . strtoupper($profilDesa['desa'] ?? 'DESA …') . '</div>
+        <div class="addr">' . ($profilDesa['alamatKantor'] ?? 'Alamat Kantor …') . '</div>
+    </div>';
     }
+
 
     /**
      * Generate TTD block
@@ -1052,7 +1058,7 @@ class HomeController extends Controller
                 'alamatKantor' => 'Jl. Trans Sulawesi, Ulukalo, Iwoimendaa, Kolaka'
             ],
             'kepalaDesa' => [
-                'nama' => 'NAMA KEPALA DESA',
+                'nama' => 'Nasruddin S.H',
                 'nip' => 'NIP. 123456789012345'
             ],
             'camat' => [
