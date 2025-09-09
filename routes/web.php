@@ -16,7 +16,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/struktur', 'struktur')->name('struktur');
     Route::get('/potensi', 'potensi')->name('potensi');
     Route::get('/surat', 'surat')->name('surat');
-    Route::get('/kontak', 'kontak')->name('kontak');
+    //Route::get('/kontak', 'kontak')->name('kontak');
     // Route::get('/pemerintahan', 'pemerintahan')->name('pemerintahan');
     // Route::get('/apbdes', 'apbdes')->name('apbdes');
     Route::post('/surat/preview', [HomeController::class, 'previewSurat'])->name('surat.preview');

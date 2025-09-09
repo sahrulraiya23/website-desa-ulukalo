@@ -18,7 +18,7 @@
       "nama": "Surat Keterangan Belum Menikah",
       "template": "assets/surat/templates/SURAT KETERANGAN BELUM MENIKAH.pdf",
       "fields": [
-        { "name": "nomor", "label": "Nomor Surat", "req": true },
+     
         { "name": "nama", "label": "Nama Lengkap", "req": true },
         { "name": "ttl", "label": "Tempat Tanggal Lahir", "req": true },
         { "name": "jk", "label": "Jenis Kelamin", "type": "select", "options": ["Laki-laki", "Perempuan"], "req": true },
@@ -32,7 +32,7 @@
       "nama": "Surat Keterangan Berkelakuan Baik",
       "template": "assets/surat/templates/SURAT KETERANGAN BERKELAKUAN BAIK.pdf",
       "fields": [
-        { "name": "nomor", "label": "Nomor Surat", "req": true },
+     
 
         { "name": "pen_nama", "label": "(Penandatangan) Nama", "req": true, "placeholder": "mis. NASRUDDIN, SH" },
         { "name": "pen_umur", "label": "(Penandatangan) Umur" },
@@ -54,7 +54,6 @@
       "nama": "Surat Keterangan Tidak Mampu",
       "template": "assets/surat/templates/SURAT KETERANGAN TIDAK MAMPU.pdf",
       "fields": [
-        { "name": "nomor", "label": "Nomor Surat", "req": true },
         { "name": "nama", "label": "Nama Lengkap", "req": true },
         { "name": "jk", "label": "Jenis Kelamin", "type": "select", "options": ["Laki-laki", "Perempuan"], "req": true },
         { "name": "ttl", "label": "Tempat Tanggal Lahir", "req": true },
@@ -67,7 +66,6 @@
       "nama": "Surat Keterangan Usaha",
       "template": "assets/surat/templates/SURAT KETERANGAN USAHA.pdf",
       "fields": [
-        { "name": "nomor", "label": "Nomor Surat", "req": true },
         { "name": "nama", "label": "Nama Lengkap", "req": true },
         { "name": "ttl", "label": "Tempat dan Tgl Lahir", "req": true },
         { "name": "alamat", "label": "Alamat", "type": "textarea", "req": true },
@@ -87,7 +85,6 @@
       "nama": "Surat Pernyataan Tanggung Jawab Mutlak",
       "template": "assets/surat/templates/SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK.pdf",
       "fields": [
-        { "name": "nomor", "label": "Nomor Surat", "req": true },
 
         { "name": "pen_nama", "label": "Nama (Yang Menyatakan)", "req": true },
         { "name": "pen_jabatan", "label": "Jabatan (Yang Menyatakan)", "req": true },

@@ -1,386 +1,683 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Layanan Surat – Desa Ulukalo</title>
-  <meta name="description" content="Layanan pembuatan surat keterangan Desa Ulukalo: SKU, SKTM, Berkelakuan Baik, Belum Menikah, SPTJM.">
-  <meta name="keywords" content="Desa Ulukalo, layanan surat, SKU, SKTM, SKBB, SKBM, SPTJM">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Layanan Surat – Desa Ulukalo</title>
+    <meta name="description"
+        content="Layanan pembuatan surat keterangan Desa Ulukalo: SKU, SKTM, Berkelakuan Baik, Belum Menikah, SPTJM.">
+    <meta name="keywords" content="Desa Ulukalo, layanan surat, SKU, SKTM, SKBB, SKBM, SPTJM">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+    <!-- Main CSS File -->
+    <link href="assets/css/main.css" rel="stylesheet">
 
-  <style>
-    .surat-card{border:1px solid #e9ecef;border-radius:14px;height:100%;transition:.2s}
-    .surat-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,0,0,.08)}
-    .tpl-frame{width:100%;min-height:520px;border:1px solid #e9ecef;border-radius:14px}
-    .sticky-md{position:sticky;top:90px}
-    .req::after{content:" *";color:#dc3545}
-    .result-wrap{border:1px solid #e9ecef;border-radius:14px;padding:28px;background:#fff}
-    .kop-desa{text-align:center;border-bottom:2px solid #000;margin-bottom:12px;padding-bottom:10px}
-    .kop-desa .title{font-weight:800;font-size:20px;letter-spacing:.5px}
-    .kop-desa .sub{font-weight:700}
-    .kop-desa .addr{font-size:12px}
-    .judul-surat{text-align:center;font-weight:700;text-decoration:underline;margin:12px 0 0}
-    .nomor-surat{text-align:center;margin-top:2px}
-    .ttd{width:260px;float:right;margin-top:28px}
-    .ttd .nm{margin-top:68px;font-weight:700;text-decoration:underline}
-    .ttd .nip{margin-top:-6px}
-    .form-floating>.form-control,.form-select{height:52px}
-    @media print{
-      body{background:#fff}
-      .no-print{display:none!important}
-      @page{size:A4;margin:20mm}
-      .result-wrap{border:none;padding:0}
-    }
-  </style>
+    <style>
+        .surat-card {
+            border: 1px solid #e9ecef;
+            border-radius: 14px;
+            height: 100%;
+            transition: .2s
+        }
+
+        .surat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, .08)
+        }
+
+        .tpl-frame {
+            width: 100%;
+            min-height: 520px;
+            border: 1px solid #e9ecef;
+            border-radius: 14px
+        }
+
+        .sticky-md {
+            position: sticky;
+            top: 90px
+        }
+
+        .req::after {
+            content: " *";
+            color: #dc3545
+        }
+
+        .result-wrap {
+            border: 1px solid #e9ecef;
+            border-radius: 14px;
+            padding: 28px;
+            background: #fff
+        }
+
+        .kop-desa {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            margin-bottom: 12px;
+            padding-bottom: 10px
+        }
+
+        .kop-desa .title {
+            font-weight: 800;
+            font-size: 20px;
+            letter-spacing: .5px
+        }
+
+        .kop-desa .sub {
+            font-weight: 700
+        }
+
+        .kop-desa .addr {
+            font-size: 12px
+        }
+
+        .judul-surat {
+            text-align: center;
+            font-weight: 700;
+            text-decoration: underline;
+            margin: 12px 0 0
+        }
+
+        .nomor-surat {
+            text-align: center;
+            margin-top: 2px
+        }
+
+        .ttd {
+            width: 260px;
+            float: right;
+            margin-top: 28px
+        }
+
+        .ttd .nm {
+            margin-top: 68px;
+            font-weight: 700;
+            text-decoration: underline
+        }
+
+        .ttd .nip {
+            margin-top: -6px
+        }
+
+        .form-floating>.form-control,
+        .form-select {
+            height: 52px
+        }
+
+        @media print {
+            body {
+                background: #fff
+            }
+
+            .no-print {
+                display: none !important
+            }
+
+            @page {
+                size: A4;
+                margin: 20mm
+            }
+
+            .result-wrap {
+                border: none;
+                padding: 0
+            }
+        }
+
+    </style>
 </head>
+
 <body class="about-page">
 
-  <!-- Header -->
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <i class="bi bi-bank"></i><h1 class="sitename">Desa Ulukalo</h1>
-      </a>
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="index.html">Beranda</a></li>
-          <li class="dropdown">
-            <a href="sejarah.html"><span>Profil</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul>
-              <li><a href="sejarah.html">Sejarah Desa</a></li>
-              <li><a href="visi-misi.html">Visi &amp; Misi</a></li>
-              <li><a href="struktur-desa.html">Struktur Desa</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="pemerintahan.html"><span>Pemerintahan</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-            <ul><li><a href="pemerintahan.html">Aparat Desa &amp; Kadus</a></li></ul>
-          </li>
-          <li><a href="apbdes.html">APBDes</a></li>
-          <li><a class="active" href="layanan-surat.html">Layanan Surat</a></li>
-          <li><a href="kontak.html">Kontak</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-    </div>
-  </header>
-
-  <main class="main">
-
-    <!-- Page Title -->
-    <div class="page-title">
-      <div class="heading">
-        <div class="container">
-          <div class="row d-flex justify-content-center text-center">
-            <div class="col-lg-9">
-              <h1 class="heading-title">Layanan Surat Desa</h1>
-              <p class="mb-0">Pilih jenis surat untuk melihat <b>format</b> (tanpa data), lalu klik <b>Buat Surat</b> untuk isi biodata dan unduh hasilnya.</p>
-            </div>
-          </div>
+    <!-- Header -->
+    <header id="header" class="header d-flex align-items-center sticky-top">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <i class="bi bi-bank"></i>
+                <h1 class="sitename">Desa Ulukalo</h1>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="sejarah.html"><span>Profil</span> <i
+                                class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="sejarah.html">Sejarah Desa</a></li>
+                            <li><a href="visi-misi.html">Visi &amp; Misi</a></li>
+                            <li><a href="struktur-desa.html">Struktur Desa</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="pemerintahan.html"><span>Pemerintahan</span> <i
+                                class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="pemerintahan.html">Aparat Desa &amp; Kadus</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="apbdes.html">APBDes</a></li>
+                    <li><a class="active" href="layanan-surat.html">Layanan Surat</a></li>
+                    <li><a href="kontak.html">Kontak</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
         </div>
-      </div>
-      <nav class="breadcrumbs">
-        <div class="container">
-          <ol><li><a href="index.html">Beranda</a></li><li class="current">Layanan Surat</li></ol>
-        </div>
-      </nav>
-    </div>
+    </header>
 
-    <!-- Pilihan Surat + Preview -->
-    <section class="section pt-0">
-      <div class="container">
-        <div class="row g-4">
-          <!-- Daftar pilihan -->
-          <div class="col-lg-5">
-            <div class="row g-3">
-              <div class="col-12">
-                <div class="alert alert-light border d-flex align-items-center mb-2" role="alert">
-                  <i class="bi bi-info-circle me-2"></i>
-                  Simpan template PDF kosong di <code>assets/surat/templates/</code> (gunakan <b>slash</b> <code>/</code>, bukan backslash).
+    <main class="main">
+
+        <!-- Page Title -->
+        <div class="page-title">
+            <div class="heading">
+                <div class="container">
+                    <div class="row d-flex justify-content-center text-center">
+                        <div class="col-lg-9">
+                            <h1 class="heading-title">Layanan Surat Desa</h1>
+                            <p class="mb-0">Pilih jenis surat untuk melihat <b>format</b> (tanpa data), lalu klik
+                                <b>Buat Surat</b> untuk isi biodata dan unduh hasilnya.</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div id="pilihanSurat" class="col-12"></div>
             </div>
-          </div>
+            <nav class="breadcrumbs">
+                <div class="container">
+                    <ol>
+                        <li><a href="index.html">Beranda</a></li>
+                        <li class="current">Layanan Surat</li>
+                    </ol>
+                </div>
+            </nav>
+        </div>
 
-          <!-- Preview template -->
-          <div class="col-lg-7">
-            <div class="sticky-md">
-              <div class="d-flex align-items-center justify-content-between mb-2">
-                <h3 class="h6 mb-0">Pratinjau Format</h3>
-                <div class="text-muted small" id="tplFilename"></div>
-              </div>
-              <div id="tplWrap">
-                <iframe id="tplFrame" class="tpl-frame" title="Pratinjau Template" src=""></iframe>
-              </div>
-              <div class="small text-muted mt-2">Jika pratinjau tidak tampil, pastikan file PDF ada dan nama filenya sesuai.</div>
+        <!-- Pilihan Surat + Preview -->
+        <section class="section pt-0">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Daftar pilihan -->
+                    <div class="col-lg-5">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="alert alert-light border d-flex align-items-center mb-2" role="alert">
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    Simpan template PDF kosong di <code>assets/surat/templates/</code> (gunakan
+                                    <b>slash</b> <code>/</code>, bukan backslash).
+                                </div>
+                            </div>
+                            <div id="pilihanSurat" class="col-12"></div>
+                        </div>
+                    </div>
+
+                    <!-- Preview template -->
+                    <div class="col-lg-7">
+                        <div class="sticky-md">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h3 class="h6 mb-0">Pratinjau Format</h3>
+                                <div class="text-muted small" id="tplFilename"></div>
+                            </div>
+                            <div id="tplWrap">
+                                <iframe id="tplFrame" class="tpl-frame" title="Pratinjau Template" src=""></iframe>
+                            </div>
+                            <div class="small text-muted mt-2">Jika pratinjau tidak tampil, pastikan file PDF ada dan
+                                nama filenya sesuai.</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!-- Form Dinamis -->
-    <section class="section">
-      <div class="container">
-        <div class="p-3 p-lg-4 border rounded-3">
-          <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
-            <h3 class="h5 mb-0">Form Pengisian</h3>
-            <div class="d-flex gap-2">
-              <select id="jenisSelect" class="form-select"></select>
-              <button id="btnIsiCepat" class="btn btn-outline-secondary" type="button" title="Contoh pengisian">Isi contoh</button>
+        <!-- Form Dinamis -->
+        <section class="section">
+            <div class="container">
+                <div class="p-3 p-lg-4 border rounded-3">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+                        <h3 class="h5 mb-0">Form Pengisian</h3>
+                        <div class="d-flex gap-2">
+                            <select id="jenisSelect" class="form-select"></select>
+                            <button id="btnIsiCepat" class="btn btn-outline-secondary" type="button"
+                                title="Contoh pengisian">Isi contoh</button>
+                        </div>
+                    </div>
+
+                    <form id="formSurat" class="row g-3">
+                        <!-- bidang dinamis -->
+                    </form>
+
+                    <div class="d-flex gap-2 mt-3">
+                        <button id="btnLihatHasil" class="btn btn-dark" type="button"><i
+                                class="bi bi-eye me-1"></i>Lihat Hasil</button>
+                        <button id="btnReset" class="btn btn-outline-secondary" type="button">Reset</button>
+                    </div>
+                </div>
             </div>
-          </div>
+        </section>
 
-          <form id="formSurat" class="row g-3">
-            <!-- bidang dinamis -->
-          </form>
-
-          <div class="d-flex gap-2 mt-3">
-            <button id="btnLihatHasil" class="btn btn-dark" type="button"><i class="bi bi-eye me-1"></i>Lihat Hasil</button>
-            <button id="btnReset" class="btn btn-outline-secondary" type="button">Reset</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hasil Surat -->
-    <section class="section">
-      <div class="container">
-        <div class="d-flex align-items-center justify-content-between mb-2">
-          <h3 class="h5 mb-0">Hasil Surat</h3>
-          <div class="no-print d-flex gap-2">
-            <button id="btnUnduh" class="btn btn-dark" type="button"><i class="bi bi-filetype-pdf me-1"></i>Unduh PDF</button>
-            <button id="btnCetak" class="btn btn-outline-dark" type="button"><i class="bi bi-printer me-1"></i>Cetak</button>
-          </div>
-        </div>
-        <div id="hasilSurat" class="result-wrap">
-          <div class="text-muted">Hasil akan muncul di sini setelah kamu klik <b>Lihat Hasil</b>.</div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer id="footer" class="footer-16 footer position-relative dark-background">
-    <div class="container">
-      <div class="footer-main">
-        <div class="row align-items-start">
-          <div class="col-lg-6">
-            <div class="brand-section">
-              <a href="index.html" class="logo d-flex align-items-center mb-3"><span class="sitename">Desa Ulukalo</span></a>
-              <p class="brand-description">Kantor Desa Ulukalo, Kabupaten Kolaka – Informasi profil, pemerintahan, layanan surat, dan transparansi APBDes.</p>
-              <div class="contact-info mt-3">
-                <div class="contact-item"><i class="bi bi-geo-alt"></i> Alamat kantor: [isi alamat]</div>
-                <div class="contact-item"><i class="bi bi-telephone"></i> Telp/WA: [isi nomor]</div>
-                <div class="contact-item"><i class="bi bi-envelope"></i> Email: [isi email]</div>
-              </div>
+        <!-- Hasil Surat -->
+        <section class="section">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h5 mb-0">Hasil Surat</h3>
+                    <div class="no-print d-flex gap-2">
+                        <button id="btnUnduh" class="btn btn-dark" type="button"><i
+                                class="bi bi-filetype-pdf me-1"></i>Unduh PDF</button>
+                        <button id="btnCetak" class="btn btn-outline-dark" type="button"><i
+                                class="bi bi-printer me-1"></i>Cetak</button>
+                    </div>
+                </div>
+                <div id="hasilSurat" class="result-wrap">
+                    <div class="text-muted">Hasil akan muncul di sini setelah kamu klik <b>Lihat Hasil</b>.</div>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="col-6">
-                <h6>Profil</h6>
-                <nav class="footer-nav">
-                  <a href="sejarah.html">Sejarah</a>
-                  <a href="visi-misi.html">Visi &amp; Misi</a>
-                  <a href="struktur-desa.html">Struktur Desa</a>
-                </nav>
-              </div>
-              <div class="col-6">
-                <h6>Layanan</h6>
-                <nav class="footer-nav">
-                  <a href="pemerintahan.html">Aparat &amp; Kadus</a>
-                  <a href="apbdes.html">APBDes</a>
-                  <a href="layanan-surat.html">Layanan Surat</a>
-                  <a href="kontak.html">Kontak</a>
-                </nav>
-              </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer-16 footer position-relative dark-background">
+        <div class="container">
+            <div class="footer-main">
+                <div class="row align-items-start">
+                    <div class="col-lg-6">
+                        <div class="brand-section">
+                            <a href="index.html" class="logo d-flex align-items-center mb-3"><span class="sitename">Desa
+                                    Ulukalo</span></a>
+                            <p class="brand-description">Kantor Desa Ulukalo, Kabupaten Kolaka – Informasi profil,
+                                pemerintahan, layanan surat, dan transparansi APBDes.</p>
+                            <div class="contact-info mt-3">
+                                <div class="contact-item"><i class="bi bi-geo-alt"></i> Alamat kantor: [isi alamat]
+                                </div>
+                                <div class="contact-item"><i class="bi bi-telephone"></i> Telp/WA: [isi nomor]</div>
+                                <div class="contact-item"><i class="bi bi-envelope"></i> Email: [isi email]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <h6>Profil</h6>
+                                <nav class="footer-nav">
+                                    <a href="sejarah.html">Sejarah</a>
+                                    <a href="visi-misi.html">Visi &amp; Misi</a>
+                                    <a href="struktur-desa.html">Struktur Desa</a>
+                                </nav>
+                            </div>
+                            <div class="col-6">
+                                <h6>Layanan</h6>
+                                <nav class="footer-nav">
+                                    <a href="pemerintahan.html">Aparat &amp; Kadus</a>
+                                    <a href="apbdes.html">APBDes</a>
+                                    <a href="layanan-surat.html">Layanan Surat</a>
+                                    <a href="kontak.html">Kontak</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="footer-bottom mt-4">
+                <div class="bottom-content d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="copyright">
+                        <p>© <span class="sitename">Desa Ulukalo</span> — Semua hak dilindungi.</p>
+                    </div>
+                    <div class="legal-links"><a href="kebijakan-privasi.html">Kebijakan Privasi</a><a
+                            href="syarat-penggunaan.html">Syarat Penggunaan</a></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="footer-bottom mt-4">
-        <div class="bottom-content d-flex flex-wrap justify-content-between align-items-center">
-          <div class="copyright"><p>© <span class="sitename">Desa Ulukalo</span> — Semua hak dilindungi.</p></div>
-          <div class="legal-links"><a href="kebijakan-privasi.html">Kebijakan Privasi</a><a href="syarat-penggunaan.html">Syarat Penggunaan</a></div>
-        </div>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  <div id="preloader"></div>
+    <!-- Scroll Top -->
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div>
 
-  <!-- Vendor JS -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/js/main.js"></script>
+    <!-- Vendor JS -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>
 
-  <!-- html2pdf untuk unduh PDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" referrerpolicy="no-referrer"></script>
+    <!-- html2pdf untuk unduh PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        referrerpolicy="no-referrer"></script>
 
-  <!-- Layanan Surat Script -->
-  <script>
-  // ===== Util =====
-  const $ = s => document.querySelector(s);
-  const el = id => document.getElementById(id);
-  const toTitle = s => (s||'').replace(/-/g,' ').replace(/\b\w/g, m=>m.toUpperCase());
+    <!-- Layanan Surat Script -->
+    <script>
+        // ===== Util =====
+        const $ = s => document.querySelector(s);
+        const el = id => document.getElementById(id);
+        const toTitle = s => (s || '').replace(/-/g, ' ').replace(/\b\w/g, m => m.toUpperCase());
 
-  // ===== Konfigurasi (fallback). Bisa di-override oleh assets/js/surat-config.json =====
-  let CFG = {
-    profilDesa: {
-      kabupaten: "KABUPATEN KOLAKA",
-      kecamatan: "KECAMATAN [ISI]",
-      desa: "DESA ULUKALO",
-      alamatKantor: "Alamat Kantor: [isi alamat lengkap] • Kode Pos [____]"
-    },
-    kepalaDesa: {
-      nama: "[Nama Kepala Desa]",
-      nip: "NIP. -"
-    },
-    camat: {
-      nama: "[Nama Camat]",
-      nip: "NIP. [__________]"
-    },
-    jenis: {
-      "sku": {
-        nama: "Surat Keterangan Usaha",
-        template: "assets/surat/templates/SURAT KETERANGAN USAHA.pdf",
-        fields: [
-          {name:"nomor", label:"Nomor Surat", req:true},
-          {name:"nama", label:"Nama Lengkap", req:true},
-          {name:"ttl", label:"Tempat dan Tgl Lahir", req:true},
-          {name:"alamat", label:"Alamat", type:"textarea", req:true},
-          {name:"dusun", label:"Dusun", req:true},
-          {name:"nik", label:"Nomor KTP", req:true},
-          {name:"domisili", label:"Domisili Sejak Tahun", placeholder:"mis. 2017", req:true},
-          {name:"sektor_pertanian", label:"Sektor: Pertanian (isi spesifikasi)"},
-          {name:"sektor_industri", label:"Sektor: Industri (isi spesifikasi)"},
-          {name:"sektor_perdagangan", label:"Sektor: Perdagangan (isi spesifikasi)"},
-          {name:"sektor_jasa", label:"Sektor: Jasa & Dunia Usaha (isi spesifikasi)"},
-          {name:"tanggal", label:"Tanggal Surat", type:"date", req:true}
-        ]
-      },
-      "sktm": {
-        nama: "Surat Keterangan Tidak Mampu",
-        template: "assets/surat/templates/SURAT KETERANGAN TIDAK MAMPU.pdf",
-        fields: [
-          {name:"nomor", label:"Nomor Surat", req:true},
-          {name:"nama", label:"Nama Lengkap", req:true},
-          {name:"jk", label:"Jenis Kelamin", type:"select", options:["Laki-laki","Perempuan"], req:true},
-          {name:"ttl", label:"Tempat Tanggal Lahir", req:true},
-          {name:"pekerjaan", label:"Pekerjaan"},
-          {name:"alamat", label:"Alamat", type:"textarea", req:true},
-          {name:"tanggal", label:"Tanggal Surat", type:"date", req:true}
-        ]
-      },
-      "skbb": {
-        nama: "Surat Keterangan Berkelakuan Baik",
-        template: "assets/surat/templates/SURAT KETERANGAN BERKELAKUAN BAIK.pdf",
-        fields: [
-          {name:"nomor", label:"Nomor Surat", req:true},
+        // ===== Konfigurasi (fallback). Bisa di-override oleh assets/js/surat-config.json =====
+        let CFG = {
+            profilDesa: {
+                kabupaten: "KABUPATEN KOLAKA",
+                kecamatan: "KECAMATAN [ISI]",
+                desa: "DESA ULUKALO",
+                alamatKantor: "Alamat Kantor: [isi alamat lengkap] • Kode Pos [____]"
+            },
+            kepalaDesa: {
+                nama: "[Nama Kepala Desa]",
+                nip: "NIP. -"
+            },
+            camat: {
+                nama: "[Nama Camat]",
+                nip: "NIP. [__________]"
+            },
+            jenis: {
+                "sku": {
+                    nama: "Surat Keterangan Usaha",
+                    template: "assets/surat/templates/SURAT KETERANGAN USAHA.pdf",
+                    fields: [{
+                            name: "nama",
+                            label: "Nama Lengkap",
+                            req: true
+                        },
+                        {
+                            name: "ttl",
+                            label: "Tempat dan Tgl Lahir",
+                            req: true
+                        },
+                        {
+                            name: "alamat",
+                            label: "Alamat",
+                            type: "textarea",
+                            req: true
+                        },
+                        {
+                            name: "dusun",
+                            label: "Dusun",
+                            req: true
+                        },
+                        {
+                            name: "nik",
+                            label: "Nomor KTP",
+                            req: true
+                        },
+                        {
+                            name: "domisili",
+                            label: "Domisili Sejak Tahun",
+                            placeholder: "mis. 2017",
+                            req: true
+                        },
+                        {
+                            name: "sektor_pertanian",
+                            label: "Sektor: Pertanian (isi spesifikasi)"
+                        },
+                        {
+                            name: "sektor_industri",
+                            label: "Sektor: Industri (isi spesifikasi)"
+                        },
+                        {
+                            name: "sektor_perdagangan",
+                            label: "Sektor: Perdagangan (isi spesifikasi)"
+                        },
+                        {
+                            name: "sektor_jasa",
+                            label: "Sektor: Jasa & Dunia Usaha (isi spesifikasi)"
+                        },
+                        {
+                            name: "tanggal",
+                            label: "Tanggal Surat",
+                            type: "date",
+                            req: true
+                        }
+                    ]
+                },
+                "sktm": {
+                    nama: "Surat Keterangan Tidak Mampu",
+                    template: "assets/surat/templates/SURAT KETERANGAN TIDAK MAMPU.pdf",
+                    fields: [{
+                            name: "nama",
+                            label: "Nama Lengkap",
+                            req: true
+                        },
+                        {
+                            name: "jk",
+                            label: "Jenis Kelamin",
+                            type: "select",
+                            options: ["Laki-laki", "Perempuan"],
+                            req: true
+                        },
+                        {
+                            name: "ttl",
+                            label: "Tempat Tanggal Lahir",
+                            req: true
+                        },
+                        {
+                            name: "pekerjaan",
+                            label: "Pekerjaan"
+                        },
+                        {
+                            name: "alamat",
+                            label: "Alamat",
+                            type: "textarea",
+                            req: true
+                        },
+                        {
+                            name: "tanggal",
+                            label: "Tanggal Surat",
+                            type: "date",
+                            req: true
+                        }
+                    ]
+                },
+                "skbb": {
+                    nama: "Surat Keterangan Berkelakuan Baik",
+                    template: "assets/surat/templates/SURAT KETERANGAN BERKELAKUAN BAIK.pdf",
+                    fields: [
 
-          {name:"pen_nama", label:"(Penandatangan) Nama", req:true, placeholder:"mis. NASRUDDIN, SH"},
-          {name:"pen_umur", label:"(Penandatangan) Umur"},
-          {name:"pen_jabatan", label:"(Penandatangan) Pekerjaan/Jabatan", req:true, placeholder:"Kepala Desa Ulukalo"},
+                        {
+                            name: "pen_nama",
+                            label: "(Penandatangan) Nama",
+                            req: true,
+                            placeholder: "mis. NASRUDDIN, SH"
+                        },
+                        {
+                            name: "pen_umur",
+                            label: "(Penandatangan) Umur"
+                        },
+                        {
+                            name: "pen_jabatan",
+                            label: "(Penandatangan) Pekerjaan/Jabatan",
+                            req: true,
+                            placeholder: "Kepala Desa Ulukalo"
+                        },
 
-          {name:"nama", label:"(Subjek) Nama", req:true},
-          {name:"ttl", label:"(Subjek) Tempat/Tgl Lahir", req:true},
-          {name:"nik", label:"(Subjek) NIK", req:true},
-          {name:"jk", label:"(Subjek) Jenis Kelamin", type:"select", options:["Laki-laki","Perempuan"], req:true},
-          {name:"alamat", label:"(Subjek) Alamat", type:"textarea", req:true},
-          {name:"maksud", label:"Maksud/Tujuan", req:true},
+                        {
+                            name: "nama",
+                            label: "(Subjek) Nama",
+                            req: true
+                        },
+                        {
+                            name: "ttl",
+                            label: "(Subjek) Tempat/Tgl Lahir",
+                            req: true
+                        },
+                        {
+                            name: "nik",
+                            label: "(Subjek) NIK",
+                            req: true
+                        },
+                        {
+                            name: "jk",
+                            label: "(Subjek) Jenis Kelamin",
+                            type: "select",
+                            options: ["Laki-laki", "Perempuan"],
+                            req: true
+                        },
+                        {
+                            name: "alamat",
+                            label: "(Subjek) Alamat",
+                            type: "textarea",
+                            req: true
+                        },
+                        {
+                            name: "maksud",
+                            label: "Maksud/Tujuan",
+                            req: true
+                        },
 
-          {name:"tanggal", label:"Tanggal Surat", type:"date", req:true},
-          {name:"camat_nama", label:"(Mengetahui) Camat", placeholder:"[Nama Camat]"},
-          {name:"camat_nip", label:"(Mengetahui) NIP Camat", placeholder:"NIP. [__________]"}
-        ]
-      },
-      "skbm": {
-        nama: "Surat Keterangan Belum Menikah",
-        template: "assets/surat/templates/SURAT KETERANGAN BELUM MENIKAH.pdf",
-        fields: [
-          {name:"nomor", label:"Nomor Surat", req:true},
-          {name:"nama", label:"Nama Lengkap", req:true},
-          {name:"ttl", label:"Tempat Tanggal Lahir", req:true},
-          {name:"jk", label:"Jenis Kelamin", type:"select", options:["Laki-laki","Perempuan"], req:true},
-          {name:"pekerjaan", label:"Pekerjaan"},
-          {name:"agama", label:"Agama"},
-          {name:"alamat", label:"Alamat", type:"textarea", req:true},
-          {name:"tanggal", label:"Tanggal Surat", type:"date", req:true}
-        ]
-      },
-      "sptjm": {
-        nama: "Surat Pernyataan Tanggung Jawab Mutlak",
-        template: "assets/surat/templates/SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK.pdf",
-        fields: [
-          {name:"nomor", label:"Nomor Surat", req:true},
+                        {
+                            name: "tanggal",
+                            label: "Tanggal Surat",
+                            type: "date",
+                            req: true
+                        },
+                        {
+                            name: "camat_nama",
+                            label: "(Mengetahui) Camat",
+                            placeholder: "[Nama Camat]"
+                        },
+                        {
+                            name: "camat_nip",
+                            label: "(Mengetahui) NIP Camat",
+                            placeholder: "NIP. [__________]"
+                        }
+                    ]
+                },
+                "skbm": {
+                    nama: "Surat Keterangan Belum Menikah",
+                    template: "assets/surat/templates/SURAT KETERANGAN BELUM MENIKAH.pdf",
+                    fields: [{
+                            name: "nama",
+                            label: "Nama Lengkap",
+                            req: true
+                        },
+                        {
+                            name: "ttl",
+                            label: "Tempat Tanggal Lahir",
+                            req: true
+                        },
+                        {
+                            name: "jk",
+                            label: "Jenis Kelamin",
+                            type: "select",
+                            options: ["Laki-laki", "Perempuan"],
+                            req: true
+                        },
+                        {
+                            name: "pekerjaan",
+                            label: "Pekerjaan"
+                        },
+                        {
+                            name: "agama",
+                            label: "Agama"
+                        },
+                        {
+                            name: "alamat",
+                            label: "Alamat",
+                            type: "textarea",
+                            req: true
+                        },
+                        {
+                            name: "tanggal",
+                            label: "Tanggal Surat",
+                            type: "date",
+                            req: true
+                        }
+                    ]
+                },
+                "sptjm": {
+                    nama: "Surat Pernyataan Tanggung Jawab Mutlak",
+                    template: "assets/surat/templates/SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK.pdf",
+                    fields: [
 
-          {name:"pen_nama", label:"Nama (Yang Menyatakan)", req:true},
-          {name:"pen_jabatan", label:"Jabatan (Yang Menyatakan)", req:true},
-          {name:"pen_alamat", label:"Alamat (Yang Menyatakan)", type:"textarea", req:true},
+                        {
+                            name: "pen_nama",
+                            label: "Nama (Yang Menyatakan)",
+                            req: true
+                        },
+                        {
+                            name: "pen_jabatan",
+                            label: "Jabatan (Yang Menyatakan)",
+                            req: true
+                        },
+                        {
+                            name: "pen_alamat",
+                            label: "Alamat (Yang Menyatakan)",
+                            type: "textarea",
+                            req: true
+                        },
 
-          {name:"subjek_nama", label:"Nama Penduduk", req:true},
-          {name:"subjek_nik", label:"NIK Penduduk", req:true},
-          {name:"subjek_nokk", label:"Nomor KK Penduduk", req:true},
+                        {
+                            name: "subjek_nama",
+                            label: "Nama Penduduk",
+                            req: true
+                        },
+                        {
+                            name: "subjek_nik",
+                            label: "NIK Penduduk",
+                            req: true
+                        },
+                        {
+                            name: "subjek_nokk",
+                            label: "Nomor KK Penduduk",
+                            req: true
+                        },
 
-          {name:"tanggal", label:"Tanggal Surat", type:"date", req:true}
-        ]
-      }
-    }
-  };
+                        {
+                            name: "tanggal",
+                            label: "Tanggal Surat",
+                            type: "date",
+                            req: true
+                        }
+                    ]
+                }
+            }
+        };
 
-  // Coba muat config eksternal jika ada
-  fetch('assets/js/surat-config.json').then(r=>{
-    if(!r.ok) throw 0; return r.json();
-  }).then(json=>{
-    if(json) CFG = {...CFG, ...json};
-    init();
-  }).catch(()=>init());
+        // Coba muat config eksternal jika ada
+        fetch('assets/js/surat-config.json').then(r => {
+            if (!r.ok) throw 0;
+            return r.json();
+        }).then(json => {
+            if (json) CFG = {
+                ...CFG,
+                ...json
+            };
+            init();
+        }).catch(() => init());
 
-  // ===== State =====
-  let current = "sku";
+        // ===== State =====
+        let current = "sku";
 
-  // ===== Init UI =====
-  function init(){
-    // Isi daftar pilihan + select jenis
-    const list = document.createElement('div');
-    list.className = 'row g-3';
-    const select = el('jenisSelect');
-    select.innerHTML = '';
+        // ===== Init UI =====
+        function init() {
+            // Isi daftar pilihan + select jenis
+            const list = document.createElement('div');
+            list.className = 'row g-3';
+            const select = el('jenisSelect');
+            select.innerHTML = '';
 
-    Object.entries(CFG.jenis).forEach(([key,obj])=>{
-      // opsi select
-      const opt = document.createElement('option');
-      opt.value = key; opt.textContent = obj.nama;
-      select.appendChild(opt);
+            Object.entries(CFG.jenis).forEach(([key, obj]) => {
+                // opsi select
+                const opt = document.createElement('option');
+                opt.value = key;
+                opt.textContent = obj.nama;
+                select.appendChild(opt);
 
-      // kartu
-      const col = document.createElement('div'); col.className='col-12';
-      col.innerHTML = `
+                // kartu
+                const col = document.createElement('div');
+                col.className = 'col-12';
+                col.innerHTML = `
         <div class="surat-card p-3">
           <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
             <div>
@@ -397,113 +694,168 @@
             </div>
           </div>
         </div>`;
-      list.appendChild(col);
-    });
-    el('pilihanSurat').innerHTML = '';
-    el('pilihanSurat').appendChild(list);
+                list.appendChild(col);
+            });
+            el('pilihanSurat').innerHTML = '';
+            el('pilihanSurat').appendChild(list);
 
-    // Event tombol pada kartu
-    list.addEventListener('click', (e)=>{
-      const btn = e.target.closest('button[data-act]');
-      if(!btn) return;
-      const key = btn.dataset.key;
-      if(btn.dataset.act === 'preview'){ setCurrent(key, true); }
-      if(btn.dataset.act === 'buat'){ setCurrent(key, true); document.getElementById('formSurat').scrollIntoView({behavior:'smooth'}); }
-    });
+            // Event tombol pada kartu
+            list.addEventListener('click', (e) => {
+                const btn = e.target.closest('button[data-act]');
+                if (!btn) return;
+                const key = btn.dataset.key;
+                if (btn.dataset.act === 'preview') {
+                    setCurrent(key, true);
+                }
+                if (btn.dataset.act === 'buat') {
+                    setCurrent(key, true);
+                    document.getElementById('formSurat').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
 
-    // Select jenis
-    select.addEventListener('change', e=> setCurrent(e.target.value, false));
+            // Select jenis
+            select.addEventListener('change', e => setCurrent(e.target.value, false));
 
-    // Tombol lain
-    el('btnIsiCepat').addEventListener('click', isiContoh);
-    el('btnLihatHasil').addEventListener('click', renderHasil);
-    el('btnReset').addEventListener('click', ()=>{ el('formSurat').reset(); });
-    el('btnCetak').addEventListener('click', ()=>window.print());
-    el('btnUnduh').addEventListener('click', unduhPDF);
+            // Tombol lain
+            el('btnIsiCepat').addEventListener('click', isiContoh);
+            el('btnLihatHasil').addEventListener('click', renderHasil);
+            el('btnReset').addEventListener('click', () => {
+                el('formSurat').reset();
+            });
+            el('btnCetak').addEventListener('click', () => window.print());
+            el('btnUnduh').addEventListener('click', unduhPDF);
 
-    // Set awal
-    const first = Object.keys(CFG.jenis)[0] || "sku";
-    setCurrent(first, true);
-  }
+            // Set awal
+            const first = Object.keys(CFG.jenis)[0] || "sku";
+            setCurrent(first, true);
+        }
 
-  function setCurrent(key, updatePreview=true){
-    current = key;
-    el('jenisSelect').value = key;
-    // preview (poin #2: aman untuk spasi & backslash)
-    if(updatePreview){
-      const tpl = (CFG.jenis[key]||{}).template || '';
-      const safePath = tpl ? encodeURI(tpl).replace(/\\/g,'/') : '';
-      el('tplFrame').src = safePath ? (safePath + '#toolbar=0') : '';
-      el('tplFilename').textContent = tpl || '—';
-    }
-    // fields
-    buildForm(key);
-  }
+        function setCurrent(key, updatePreview = true) {
+            current = key;
+            el('jenisSelect').value = key;
+            // preview (poin #2: aman untuk spasi & backslash)
+            if (updatePreview) {
+                const tpl = (CFG.jenis[key] || {}).template || '';
+                const safePath = tpl ? encodeURI(tpl).replace(/\\/g, '/') : '';
+                el('tplFrame').src = safePath ? (safePath + '#toolbar=0') : '';
+                el('tplFilename').textContent = tpl || '—';
+            }
+            // fields
+            buildForm(key);
+        }
 
-  // ===== Build Form Dinamis =====
-  function buildForm(key){
-    const meta = CFG.jenis[key]; if(!meta){ el('formSurat').innerHTML=''; return; }
-    const rows = meta.fields.map(f=>{
-      const id = 'f_'+f.name;
-      const label = `<label for="${id}" class="form-label ${f.req?'req':''}">${f.label||toTitle(f.name)}</label>`;
-      if(f.type === 'textarea'){
-        return `<div class="col-12"><div class="mb-1">${label}<textarea id="${id}" name="${f.name}" class="form-control" rows="3" ${f.req?'required':''} placeholder="${f.placeholder||''}"></textarea></div></div>`;
-      }
-      if(f.type === 'select'){
-        const opts = (f.options||[]).map(o=>`<option value="${o}">${o}</option>`).join('');
-        return `<div class="col-md-6"><div class="mb-1">${label}<select id="${id}" name="${f.name}" class="form-select" ${f.req?'required':''}>${opts}</select></div></div>`;
-      }
-      return `<div class="col-md-6"><div class="mb-1">${label}<input id="${id}" name="${f.name}" type="${f.type||'text'}" class="form-control" ${f.req?'required':''} placeholder="${f.placeholder||''}"></div></div>`;
-    }).join('');
-    el('formSurat').innerHTML = rows;
-  }
+        // ===== Build Form Dinamis =====
+        function buildForm(key) {
+            const meta = CFG.jenis[key];
+            if (!meta) {
+                el('formSurat').innerHTML = '';
+                return;
+            }
+            const rows = meta.fields.map(f => {
+                const id = 'f_' + f.name;
+                const label =
+                    `<label for="${id}" class="form-label ${f.req?'req':''}">${f.label||toTitle(f.name)}</label>`;
+                if (f.type === 'textarea') {
+                    return `<div class="col-12"><div class="mb-1">${label}<textarea id="${id}" name="${f.name}" class="form-control" rows="3" ${f.req?'required':''} placeholder="${f.placeholder||''}"></textarea></div></div>`;
+                }
+                if (f.type === 'select') {
+                    const opts = (f.options || []).map(o => `<option value="${o}">${o}</option>`).join('');
+                    return `<div class="col-md-6"><div class="mb-1">${label}<select id="${id}" name="${f.name}" class="form-select" ${f.req?'required':''}>${opts}</select></div></div>`;
+                }
+                return `<div class="col-md-6"><div class="mb-1">${label}<input id="${id}" name="${f.name}" type="${f.type||'text'}" class="form-control" ${f.req?'required':''} placeholder="${f.placeholder||''}"></div></div>`;
+            }).join('');
+            el('formSurat').innerHTML = rows;
+        }
 
-  // ===== Isi contoh cepat =====
-  function isiContoh(){
-    const form = el('formSurat');
-    const fill = (n,v)=>{ const x=form.querySelector(`[name="${n}"]`); if(x) x.value=v; };
-    const today = new Date().toISOString().slice(0,10);
-    if(current==='sku'){
-      fill('nomor','470/123/DU/2025'); fill('nama','Rahman'); fill('ttl','Kolaka, 12 Januari 1998');
-      fill('alamat','Dusun I, Desa Ulukalo, Kec. [ISI], Kab. Kolaka'); fill('dusun','I');
-      fill('nik','7402XXXXXXXXXXXX'); fill('domisili','2017');
-      fill('sektor_perdagangan','Perdagangan eceran (warung sembako)'); fill('tanggal', today);
-    } else if(current==='sktm'){
-      fill('nomor','400/045/DU/2025'); fill('nama','Siti Aminah'); fill('jk','Perempuan');
-      fill('ttl','Kolaka, 3 Maret 2005'); fill('pekerjaan','Pelajar'); fill('alamat','Dusun II, Desa Ulukalo'); fill('tanggal', today);
-    } else if(current==='skbb'){
-      fill('nomor','331/210/DU/2025'); fill('pen_nama','NASRUDDIN, SH'); fill('pen_umur','45'); fill('pen_jabatan','Kepala Desa Ulukalo');
-      fill('nama','Ardiansyah'); fill('ttl','Kolaka, 21 Juli 2000'); fill('nik','7402XXXXXXXXXXXX'); fill('jk','Laki-laki'); fill('alamat','Dusun III, Desa Ulukalo'); fill('maksud','Melamar pekerjaan');
-      fill('camat_nama','[Nama Camat]'); fill('camat_nip','NIP. [__________]'); fill('tanggal', today);
-    } else if(current==='skbm'){
-      fill('nomor','474/078/DU/2025'); fill('nama','Nur Aini'); fill('ttl','Kolaka, 8 Agustus 2002'); fill('jk','Perempuan');
-      fill('pekerjaan','Mahasiswa'); fill('agama','Islam'); fill('alamat','Dusun I, Desa Ulukalo'); fill('tanggal', today);
-    } else if(current==='sptjm'){
-      fill('nomor','470/999/DU/2025');
-      fill('pen_nama','NASRUDDIN, SH'); fill('pen_jabatan','Kepala Desa Ulukalo'); fill('pen_alamat','Kantor Desa Ulukalo, Kolaka');
-      fill('subjek_nama','Rahman'); fill('subjek_nik','7402XXXXXXXXXXXX'); fill('subjek_nokk','7402XXXXXXXXXXXX');
-      fill('tanggal', today);
-    }
-  }
+        // ===== Isi contoh cepat =====
+        function isiContoh() {
+            const form = el('formSurat');
+            const fill = (n, v) => {
+                const x = form.querySelector(`[name="${n}"]`);
+                if (x) x.value = v;
+            };
+            const today = new Date().toISOString().slice(0, 10);
+            if (current === 'sku') {
+                fill('nomor', '470/123/DU/2025');
+                fill('nama', 'Rahman');
+                fill('ttl', 'Kolaka, 12 Januari 1998');
+                fill('alamat', 'Dusun I, Desa Ulukalo, Kec. [ISI], Kab. Kolaka');
+                fill('dusun', 'I');
+                fill('nik', '7402XXXXXXXXXXXX');
+                fill('domisili', '2017');
+                fill('sektor_perdagangan', 'Perdagangan eceran (warung sembako)');
+                fill('tanggal', today);
+            } else if (current === 'sktm') {
+                fill('nomor', '400/045/DU/2025');
+                fill('nama', 'Siti Aminah');
+                fill('jk', 'Perempuan');
+                fill('ttl', 'Kolaka, 3 Maret 2005');
+                fill('pekerjaan', 'Pelajar');
+                fill('alamat', 'Dusun II, Desa Ulukalo');
+                fill('tanggal', today);
+            } else if (current === 'skbb') {
+                fill('nomor', '331/210/DU/2025');
+                fill('pen_nama', 'NASRUDDIN, SH');
+                fill('pen_umur', '45');
+                fill('pen_jabatan', 'Kepala Desa Ulukalo');
+                fill('nama', 'Ardiansyah');
+                fill('ttl', 'Kolaka, 21 Juli 2000');
+                fill('nik', '7402XXXXXXXXXXXX');
+                fill('jk', 'Laki-laki');
+                fill('alamat', 'Dusun III, Desa Ulukalo');
+                fill('maksud', 'Melamar pekerjaan');
+                fill('camat_nama', '[Nama Camat]');
+                fill('camat_nip', 'NIP. [__________]');
+                fill('tanggal', today);
+            } else if (current === 'skbm') {
+                fill('nomor', '474/078/DU/2025');
+                fill('nama', 'Nur Aini');
+                fill('ttl', 'Kolaka, 8 Agustus 2002');
+                fill('jk', 'Perempuan');
+                fill('pekerjaan', 'Mahasiswa');
+                fill('agama', 'Islam');
+                fill('alamat', 'Dusun I, Desa Ulukalo');
+                fill('tanggal', today);
+            } else if (current === 'sptjm') {
+                fill('nomor', '470/999/DU/2025');
+                fill('pen_nama', 'NASRUDDIN, SH');
+                fill('pen_jabatan', 'Kepala Desa Ulukalo');
+                fill('pen_alamat', 'Kantor Desa Ulukalo, Kolaka');
+                fill('subjek_nama', 'Rahman');
+                fill('subjek_nik', '7402XXXXXXXXXXXX');
+                fill('subjek_nokk', '7402XXXXXXXXXXXX');
+                fill('tanggal', today);
+            }
+        }
 
-  // ===== Render Hasil Surat (HTML) =====
-  function formDataObj(){
-    const fd = new FormData(el('formSurat'));
-    const data = {}; for (const [k,v] of fd.entries()){ data[k]=v; }
-    return data;
-  }
+        // ===== Render Hasil Surat (HTML) =====
+        function formDataObj() {
+            const fd = new FormData(el('formSurat'));
+            const data = {};
+            for (const [k, v] of fd.entries()) {
+                data[k] = v;
+            }
+            return data;
+        }
 
-  function renderHasil(){
-    // validasi minimal: field required
-    const form = el('formSurat');
-    if(!form.checkValidity()){ form.reportValidity(); return; }
+        function renderHasil() {
+            // validasi minimal: field required
+            const form = el('formSurat');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
 
-    const meta = CFG.jenis[current], P = CFG.profilDesa, K = CFG.kepalaDesa;
-    const Camat = CFG.camat || {};
-    const d = formDataObj();
+            const meta = CFG.jenis[current],
+                P = CFG.profilDesa,
+                K = CFG.kepalaDesa;
+            const Camat = CFG.camat || {};
+            const d = formDataObj();
 
-    // Komponen umum
-    const kop = `
+            // Komponen umum
+            const kop = `
       <div class="kop-desa">
         <div class="sub">PEMERINTAH ${P.kabupaten||'KABUPATEN …'}</div>
         <div class="sub">${P.kecamatan||'KECAMATAN …'}</div>
@@ -512,10 +864,10 @@
       </div>
     `;
 
-    // Body per jenis
-    let body = '';
-    if(current==='sku'){
-      body = `
+            // Body per jenis
+            let body = '';
+            if (current === 'sku') {
+                body = `
         <div class="judul-surat">SURAT KETERANGAN USAHA</div>
         <div class="nomor-surat">Nomor: ${d.nomor||'-'}</div>
         <p>Yang bertanda tangan di bawah ini, Kepala ${P.desa||'Desa'}, menerangkan bahwa:</p>
@@ -537,8 +889,8 @@
         <p>Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya.</p>
         ${ttdBlock(d.tanggal, P.desa, K)}
       `;
-    } else if(current==='sktm'){
-      body = `
+            } else if (current === 'sktm') {
+                body = `
         <div class="judul-surat">SURAT KETERANGAN TIDAK MAMPU</div>
         <div class="nomor-surat">Nomor: ${d.nomor||'-'}</div>
         <p>Yang bertanda tangan di bawah ini, Kepala ${P.desa||'Desa'}, menerangkan bahwa:</p>
@@ -553,8 +905,8 @@
         <p>Demikian surat keterangan ini dibuat agar dapat dipergunakan sebagaimana mestinya.</p>
         ${ttdBlock(d.tanggal, P.desa, K)}
       `;
-    } else if(current==='skbb'){
-      body = `
+            } else if (current === 'skbb') {
+                body = `
         <div class="judul-surat">SURAT KETERANGAN BERKELAKUAN BAIK</div>
         <div class="nomor-surat">Nomor: ${d.nomor||'-'}</div>
 
@@ -587,8 +939,8 @@
           <div>${d.camat_nip||Camat.nip||'NIP. -'}</div>
         </div>
       `;
-    } else if(current==='skbm'){
-      body = `
+            } else if (current === 'skbm') {
+                body = `
         <div class="judul-surat">SURAT KETERANGAN BELUM MENIKAH</div>
         <div class="nomor-surat">Nomor: ${d.nomor||'-'}</div>
         <p>Yang bertanda tangan di bawah ini, Kepala ${P.desa||'Desa'}, menerangkan bahwa:</p>
@@ -604,8 +956,8 @@
         <p>Demikian surat keterangan ini dibuat agar dipergunakan sebagaimana mestinya.</p>
         ${ttdBlock(d.tanggal, P.desa, K)}
       `;
-    } else if(current==='sptjm'){
-      body = `
+            } else if (current === 'sptjm') {
+                body = `
         <div class="judul-surat">SURAT PERNYATAAN TANGGUNG JAWAB MUTLAK</div>
         <div class="nomor-surat">Nomor: ${d.nomor||'-'}</div>
 
@@ -626,15 +978,19 @@
         <p>Apabila di kemudian hari terdapat ketidaksesuaian, saya bersedia menanggung segala akibat hukum yang timbul.</p>
         ${ttdBlock(d.tanggal, P.desa, K)}
       `;
-    }
+            }
 
-    el('hasilSurat').innerHTML = kop + body;
-  }
+            el('hasilSurat').innerHTML = kop + body;
+        }
 
-  function ttdBlock(tanggal, desa, K){
-    const tgl = tanggal ? formatTanggalID(tanggal) :
-      new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-    return `
+        function ttdBlock(tanggal, desa, K) {
+            const tgl = tanggal ? formatTanggalID(tanggal) :
+                new Date().toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            return `
       <div class="ttd">
         <div>${desa||'Desa …'}, ${tgl}</div>
         <div>KEPALA DESA</div>
@@ -643,35 +999,57 @@
       </div>
       <div style="clear:both"></div>
     `;
-  }
+        }
 
-  function formatTanggalID(iso){
-    try{
-      const d = new Date(iso);
-      return d.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
-    }catch(e){ return iso; }
-  }
+        function formatTanggalID(iso) {
+            try {
+                const d = new Date(iso);
+                return d.toLocaleDateString('id-ID', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+            } catch (e) {
+                return iso;
+            }
+        }
 
-  // ===== Unduh PDF dari hasil (html2pdf) =====
-  function unduhPDF(){
-    const jenis = (CFG.jenis[current]||{}).nama || toTitle(current);
-    const d = formDataObj();
-    const nama = ((d.nama||d.subjek_nama||'warga')+'').toLowerCase().trim().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-    const nom = (d.nomor||'').replace(/[^\d]/g,'');
-    const fname = `${jenis.replace(/\s+/g,'-').toLowerCase()}-${nama}${nom?('-'+nom):''}.pdf`;
+        // ===== Unduh PDF dari hasil (html2pdf) =====
+        function unduhPDF() {
+            const jenis = (CFG.jenis[current] || {}).nama || toTitle(current);
+            const d = formDataObj();
+            const nama = ((d.nama || d.subjek_nama || 'warga') + '').toLowerCase().trim().replace(/\s+/g, '-').replace(
+                /[^a-z0-9-]/g, '');
+            const nom = (d.nomor || '').replace(/[^\d]/g, '');
+            const fname = `${jenis.replace(/\s+/g,'-').toLowerCase()}-${nama}${nom?('-'+nom):''}.pdf`;
 
-    const area = el('hasilSurat');
-    if(!area || area.textContent.trim().startsWith('Hasil akan')){ alert('Silakan klik "Lihat Hasil" dulu.'); return; }
+            const area = el('hasilSurat');
+            if (!area || area.textContent.trim().startsWith('Hasil akan')) {
+                alert('Silakan klik "Lihat Hasil" dulu.');
+                return;
+            }
 
-    const opt = {
-      margin: 10,
-      filename: fname,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-    html2pdf().from(area).set(opt).save();
-  }
-  </script>
+            const opt = {
+                margin: 10,
+                filename: fname,
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+            html2pdf().from(area).set(opt).save();
+        }
+
+    </script>
 </body>
+
 </html>

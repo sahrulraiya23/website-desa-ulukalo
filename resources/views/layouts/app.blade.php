@@ -64,7 +64,6 @@
                         <ul>
                             <li><a href="{{ route('sejarah') }}">Sejarah Desa</a></li>
                             <li><a href="{{ route('visi-misi') }}">Visi &amp; Misi</a></li>
-                            <li><a href="{{ route('struktur') }}">Struktur Desa</a></li>
                         </ul>
                     </li>
 
@@ -81,7 +80,7 @@
                     <li><a href="{{ route('apbdes.index') }}#" class="{{-- request()->routeIs('apbdes') ? 'active' : '' --}}">APBDes</a></li>
                     <li><a href="{{ route('surat') }}"
                             class="{{ request()->routeIs('surat') ? 'active' : '' }}">Layanan Surat</a></li>
-                    <li><a href="{{ route('kontak') }}#" class="{{-- request()->routeIs('kontak') ? 'active' : '' --}}">Kontak</a></li>
+
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
@@ -141,15 +140,15 @@
                                     <i class="bi bi-geo-alt contact-icon"></i>
                                     <div>
                                         <strong>Alamat:</strong><br>
-                                        Jl. Poros Kolaka-Rate-Rate, Desa Ulukalo<br>
-                                        Kabupaten Kolaka, Sulawesi Tenggara
+                                        Desa Ulu Kalo, Kecamatan Iwoimendaa,<br> Kabupaten Kolaka, Provinsi Sulawesi
+                                        Tenggara, 93552
                                     </div>
                                 </div>
                                 <div class="contact-item">
                                     <i class="bi bi-telephone contact-icon"></i>
                                     <div>
                                         <strong>Telp/WA:</strong><br>
-                                        <a href="tel:+6281xxxxxxxx">0812-xxxx-xxxx</a>
+                                        <a href="tel:+6281xxxxxxxx">085283843758 (Ahmad S.pd)</a>
                                     </div>
                                 </div>
                                 <div class="contact-item">
@@ -180,10 +179,7 @@
                                             <i class="bi bi-bullseye"></i>
                                             Visi &amp; Misi
                                         </a>
-                                        <a href="{{ route('struktur') }}">
-                                            <i class="bi bi-diagram-3"></i>
-                                            Struktur Organisasi
-                                        </a>
+
                                     </nav>
                                 </div>
                             </div>
@@ -208,10 +204,7 @@
                                             <i class="bi bi-file-earmark-text"></i>
                                             Layanan Surat
                                         </a>
-                                        <a href="{{ route('kontak') }}">
-                                            <i class="bi bi-telephone"></i>
-                                            Kontak
-                                        </a>
+
                                     </nav>
                                 </div>
                             </div>

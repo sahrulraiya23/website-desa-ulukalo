@@ -40,20 +40,7 @@ class HomeController extends Controller
         return view('potensi');
     }
 
-    public function kontak()
-    {
-        $kontak = [
-            'alamat' => 'Jl. Poros Ulukalo, Desa Ulukalo, Kec. Wawonii Utara, Kab. Konawe Kepulauan, Sulawesi Tenggara',
-            'link_gmaps' => 'https://maps.app.goo.gl/xxxxxxxxx', // <-- Ganti dengan link Google Maps Anda
-            'telepon' => '0852-xxxx-xxxx', // <-- Ganti dengan nomor telepon desa
-            'link_wa' => 'https://wa.me/62852xxxxxxxx', // <-- Ganti dengan link WhatsApp Anda
-            'email' => 'desaulukalo@gmail.com', // <-- Ganti dengan email desa
-            'jam_layanan' => 'Senin – Jumat: 08.00 – 16.00 WITA<br>Sabtu – Minggu: Libur',
-            'link_gmaps_embed' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.903519881326!2d122.49895031477165!3d-6.902222294998858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d96e6d76a2b8e3b%3A0x6b8f74a2b8e3b!2sKantor%20Desa%20Ulukalo!5e0!3m2!1sid!2sid!4v1620000000000!5m2!1sid!2sid' // <-- Ganti dengan link embed Google Maps Anda
-        ];
 
-        return view('kontak', compact('kontak'));
-    }
 
     public function pemerintahan()
     {
@@ -130,16 +117,10 @@ class HomeController extends Controller
         $nama = substr($nama, 0, 20);
 
         // Ambil nomor surat
-        $nomor = '';
-        if (!empty($data['nomor'])) {
-            $nomor = preg_replace('/[^\d]/', '', $data['nomor']);
-            $nomor = substr($nomor, 0, 10);
-        }
 
         // Generate filename
         $filename = strtolower(str_replace([' ', '/'], '-', $jenisNama));
         if ($nama) $filename .= '-' . $nama;
-        if ($nomor) $filename .= '-' . $nomor;
         $filename .= '-' . date('Y-m-d');
         $filename .= '.pdf';
 
@@ -168,7 +149,6 @@ class HomeController extends Controller
             // Validasi input
             $request->validate([
                 'jenis' => 'required|string|in:sku,sktm,skbb,skbm,sptjm',
-                'nomor' => 'required|string',
                 'tanggal' => 'required|date'
             ]);
 
@@ -240,7 +220,6 @@ class HomeController extends Controller
                 // 2. Simpan data ke database
                 ArsipSurat::create([
                     'jenis_surat' => $suratConfig['jenis'][$jenis]['nama'] ?? 'Tidak Diketahui',
-                    'nomor_surat' => $data['nomor'] ?? 'Tidak ada nomor',
                     'nama_pemohon' => $data['nama'] ?? $data['subjek_nama'] ?? 'Tidak ada nama',
                     'data_pemohon' => json_encode($data),
                     'file_path' => $filePath,
@@ -483,12 +462,10 @@ class HomeController extends Controller
         $nama = str_replace(' ', '-', $nama);
         $nama = substr($nama, 0, 20); // Batasi panjang nama
 
-        $nomor = preg_replace('/[^\d]/', '', $data['nomor'] ?? '');
         $tanggal = date('Y-m-d');
 
         $filename = strtolower(str_replace(' ', '-', $jenisNama));
         if (!empty($nama)) $filename .= '-' . $nama;
-        if (!empty($nomor)) $filename .= '-' . substr($nomor, 0, 10);
         $filename .= '-' . $tanggal . '.pdf';
 
         // Pastikan filename valid
@@ -873,7 +850,7 @@ class HomeController extends Controller
 
         return '
     <div class="judul-surat">SURAT KETERANGAN USAHA</div>
-    <div class="nomor-surat">Nomor: ' . htmlspecialchars($data['nomor'] ?? '-') . '</div>
+    <div class="nomor-surat">Nomor: ' . htmlspecialchars($data['nomor'] ?? ' ') . '</div>
     
     <p>Yang bertanda tangan di bawah ini, Kepala ' . htmlspecialchars($profilDesa['desa'] ?? 'Desa') . ', menerangkan bahwa:</p>
     
@@ -1070,7 +1047,6 @@ class HomeController extends Controller
                     'nama' => 'Surat Keterangan Usaha',
                     'template' => 'assets/surat/templates/sku.pdf',
                     'fields' => [
-                        ['name' => 'nomor', 'label' => 'Nomor Surat', 'req' => true, 'placeholder' => 'Contoh: 470/123/DU/2025'],
                         ['name' => 'nama', 'label' => 'Nama Lengkap', 'req' => true],
                         ['name' => 'ttl', 'label' => 'Tempat/Tanggal Lahir', 'req' => true, 'placeholder' => 'Contoh: Kolaka, 12 Januari 1998'],
                         ['name' => 'alamat', 'label' => 'Alamat Lengkap', 'req' => true],
@@ -1088,7 +1064,6 @@ class HomeController extends Controller
                     'nama' => 'Surat Keterangan Tidak Mampu',
                     'template' => 'assets/surat/templates/sktm.pdf',
                     'fields' => [
-                        ['name' => 'nomor', 'label' => 'Nomor Surat', 'req' => true, 'placeholder' => 'Contoh: 400/045/DU/2025'],
                         ['name' => 'nama', 'label' => 'Nama Lengkap', 'req' => true],
                         ['name' => 'jk', 'label' => 'Jenis Kelamin', 'type' => 'select', 'req' => true, 'options' => ['Laki-laki', 'Perempuan']],
                         ['name' => 'ttl', 'label' => 'Tempat/Tanggal Lahir', 'req' => true],
@@ -1101,7 +1076,6 @@ class HomeController extends Controller
                     'nama' => 'Surat Keterangan Berkelakuan Baik',
                     'template' => 'assets/surat/templates/skbb.pdf',
                     'fields' => [
-                        ['name' => 'nomor', 'label' => 'Nomor Surat', 'req' => true],
                         ['name' => 'pen_nama', 'label' => 'Nama Penandatangan', 'req' => true],
                         ['name' => 'pen_umur', 'label' => 'Umur Penandatangan'],
                         ['name' => 'pen_jabatan', 'label' => 'Jabatan Penandatangan', 'req' => true],
@@ -1120,7 +1094,6 @@ class HomeController extends Controller
                     'nama' => 'Surat Keterangan Belum Menikah',
                     'template' => 'assets/surat/templates/skbm.pdf',
                     'fields' => [
-                        ['name' => 'nomor', 'label' => 'Nomor Surat', 'req' => true],
                         ['name' => 'nama', 'label' => 'Nama Lengkap', 'req' => true],
                         ['name' => 'ttl', 'label' => 'Tempat/Tanggal Lahir', 'req' => true],
                         ['name' => 'jk', 'label' => 'Jenis Kelamin', 'type' => 'select', 'req' => true, 'options' => ['Laki-laki', 'Perempuan']],
@@ -1134,7 +1107,6 @@ class HomeController extends Controller
                     'nama' => 'Surat Pernyataan Tanggung Jawab Mutlak',
                     'template' => 'assets/surat/templates/sptjm.pdf',
                     'fields' => [
-                        ['name' => 'nomor', 'label' => 'Nomor Surat', 'req' => true],
                         ['name' => 'pen_nama', 'label' => 'Nama Penandatangan', 'req' => true],
                         ['name' => 'pen_jabatan', 'label' => 'Jabatan', 'req' => true],
                         ['name' => 'pen_alamat', 'label' => 'Alamat Penandatangan', 'req' => true],

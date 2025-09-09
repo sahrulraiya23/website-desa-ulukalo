@@ -6,10 +6,13 @@
 @push('styles')
     <style>
         /* Sentuhan kecil biar kartu rapi */
+
         .aparat-card img {
-            aspect-ratio: 4/3;
+            height: 400px;
+            width: 100%;
             object-fit: cover;
         }
+
 
         .aparat-card .jabatan {
             font-size: .925rem;
@@ -66,8 +69,7 @@
                 <div class="col-md-9">
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
-                        <input id="searchInput" type="text" class="form-control"
-                               placeholder="Cari nama atau jabatan…">
+                        <input id="searchInput" type="text" class="form-control" placeholder="Cari nama atau jabatan…">
                     </div>
                 </div>
                 <div class="col-md-3 text-md-end">
@@ -78,16 +80,13 @@
             </div>
 
             <div id="aparatGrid" class="row g-4">
-                @foreach($aparatDesas as $aparat)
-                    <div class="col-12 col-sm-6 col-lg-4 aparat-item"
-                         data-nama="{{ strtolower($aparat->nama) }}"
-                         data-jabatan="{{ strtolower($aparat->jabatan) }}">
+                @foreach ($aparatDesas as $aparat)
+                    <div class="col-12 col-sm-6 col-lg-4 aparat-item" data-nama="{{ strtolower($aparat->nama) }}"
+                        data-jabatan="{{ strtolower($aparat->jabatan) }}">
                         <div class="card aparat-card h-100 border-0 shadow-sm">
-                            <img src="{{ $aparat->foto_url }}"
-                                 class="card-img-top"
-                                 alt="Foto {{ $aparat->nama }}"
-                                 loading="lazy"
-                                 onerror="this.onerror=null;this.src='{{ asset('assets/img/aparat/placeholder.jpg') }}';">
+                            <img src="{{ $aparat->foto_url }}" class="card-img-top" alt="Foto {{ $aparat->nama }}"
+                                loading="lazy"
+                                onerror="this.onerror=null;this.src='{{ asset('assets/img/aparat/placeholder.jpg') }}';">
                             <div class="card-body">
                                 <h5 class="card-title mb-1">{{ $aparat->nama }}</h5>
                                 <div class="jabatan">{{ $aparat->jabatan }}</div>

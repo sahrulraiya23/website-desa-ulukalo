@@ -337,19 +337,24 @@
                 el('formSurat').innerHTML = '';
                 return;
             }
-            const rows = meta.fields.map(f => {
-                const id = 'f_' + f.name;
-                const label =
-                    `<label for="${id}" class="form-label ${f.req?'req':''}">${f.label||toTitle(f.name)}</label>`;
-                if (f.type === 'textarea') {
-                    return `<div class="col-12"><div class="mb-1">${label}<textarea id="${id}" name="${f.name}" class="form-control" rows="3" ${f.req?'required':''} placeholder="${f.placeholder||''}"></textarea></div></div>`;
-                }
-                if (f.type === 'select') {
-                    const opts = (f.options || []).map(o => `<option value="${o}">${o}</option>`).join('');
-                    return `<div class="col-md-6"><div class="mb-1">${label}<select id="${id}" name="${f.name}" class="form-select" ${f.req?'required':''}>${opts}</select></div></div>`;
-                }
-                return `<div class="col-md-6"><div class="mb-1">${label}<input id="${id}" name="${f.name}" type="${f.type||'text'}" class="form-control" ${f.req?'required':''} placeholder="${f.placeholder||''}"></div></div>`;
-            }).join('');
+
+            // pastikan nomor_surat tidak ikut
+            const rows = (meta.fields || [])
+                .filter(f => f.name && f.name.toLowerCase() !== 'nomor_surat')
+                .map(f => {
+                    const id = 'f_' + f.name;
+                    const label =
+                        `<label for="${id}" class="form-label ${f.req?'req':''}">${f.label||toTitle(f.name)}</label>`;
+                    if (f.type === 'textarea') {
+                        return `<div class="col-12"><div class="mb-1">${label}<textarea id="${id}" name="${f.name}" class="form-control" rows="3" ${f.req?'required':''} placeholder="${f.placeholder||''}"></textarea></div></div>`;
+                    }
+                    if (f.type === 'select') {
+                        const opts = (f.options || []).map(o => `<option value="${o}">${o}</option>`).join('');
+                        return `<div class="col-md-6"><div class="mb-1">${label}<select id="${id}" name="${f.name}" class="form-select" ${f.req?'required':''}>${opts}</select></div></div>`;
+                    }
+                    return `<div class="col-md-6"><div class="mb-1">${label}<input id="${id}" name="${f.name}" type="${f.type||'text'}" class="form-control" ${f.req?'required':''} placeholder="${f.placeholder||''}"></div></div>`;
+                }).join('');
+
             el('formSurat').innerHTML = rows;
         }
 
@@ -361,7 +366,7 @@
             };
             const today = new Date().toISOString().slice(0, 10);
             if (current === 'sku') {
-                fill('nomor', '470/123/DU/2025');
+
                 fill('nama', 'Rahman');
                 fill('ttl', 'Kolaka, 12 Januari 1998');
                 fill('alamat', 'Dusun I, Desa Ulukalo, Kec. Iwoimendaa, Kab. Kolaka');
@@ -371,7 +376,6 @@
                 fill('sektor_perdagangan', 'Perdagangan eceran (warung sembako)');
                 fill('tanggal', today);
             } else if (current === 'sktm') {
-                fill('nomor', '400/045/DU/2025');
                 fill('nama', 'Siti Aminah');
                 fill('jk', 'Perempuan');
                 fill('ttl', 'Kolaka, 3 Maret 2005');
@@ -379,7 +383,6 @@
                 fill('alamat', 'Dusun II, Desa Ulukalo');
                 fill('tanggal', today);
             } else if (current === 'skbb') {
-                fill('nomor', '331/210/DU/2025');
                 fill('pen_nama', 'NAMA KEPALA DESA');
                 fill('pen_umur', '45');
                 fill('pen_jabatan', 'Kepala Desa Ulukalo');
@@ -393,7 +396,6 @@
                 fill('camat_nip', 'NIP. 123456789');
                 fill('tanggal', today);
             } else if (current === 'skbm') {
-                fill('nomor', '474/078/DU/2025');
                 fill('nama', 'Nur Aini');
                 fill('ttl', 'Kolaka, 8 Agustus 2002');
                 fill('jk', 'Perempuan');
@@ -402,7 +404,6 @@
                 fill('alamat', 'Dusun I, Desa Ulukalo');
                 fill('tanggal', today);
             } else if (current === 'sptjm') {
-                fill('nomor', '470/999/DU/2025');
                 fill('pen_nama', 'NAMA KEPALA DESA');
                 fill('pen_jabatan', 'Kepala Desa Ulukalo');
                 fill('pen_alamat', 'Kantor Desa Ulukalo, Kolaka');

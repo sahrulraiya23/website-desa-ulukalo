@@ -116,7 +116,7 @@
 
                         <div class="program-item">
                             <div class="item-visual">
-                                <img src="{{ asset('assets/img/hero/desa-ulukalo.jpg') }}" alt="Layanan Surat"
+                                <img src="{{ asset('assets/img/layanan.png') }}" alt="Layanan Surat"
                                     class="img-fluid" loading="lazy">
                             </div>
                             <div class="item-details">
@@ -132,7 +132,7 @@
 
                         <div class="program-item">
                             <div class="item-visual">
-                                <img src="{{ asset('assets/img/hero/desa-ulukalo.jpg') }}" alt="APBDes" class="img-fluid"
+                                <img src="{{ asset('assets/img/logo_apbdes.jpg') }}" alt="APBDes" class="img-fluid"
                                     loading="lazy">
                             </div>
                             <div class="item-details">
@@ -147,26 +147,12 @@
                             </a>
                         </div>
 
-                        <div class="program-item">
-                            <div class="item-visual">
-                                <img src="{{ asset('assets/img/hero/desa-ulukalo.jpg') }}" alt="Struktur Desa"
-                                    class="img-fluid" loading="lazy">
-                            </div>
-                            <div class="item-details">
-                                <div class="item-category">Profil</div>
-                                <h4>Struktur Desa</h4>
-                                <p>Daftar perangkat desa, kepala dusun, dan uraian tugas singkat.</p>
-                                <div class="item-info"><span>Terstruktur</span><span>Update</span></div>
-                            </div>
-                            <a class="item-action" href="{{ route('struktur') }}" aria-label="Struktur Desa">
-                                <i class="bi bi-arrow-right-circle"></i>
-                            </a>
-                        </div>
+
 
                         <div class="program-item">
                             <div class="item-visual">
-                                <img src="{{ asset('assets/img/hero/desa-ulukalo.jpg') }}" alt="Pemerintahan"
-                                    class="img-fluid" loading="lazy">
+                                <img src="{{ asset('assets/img/logo_aparat.jpg') }}" alt="Pemerintahan" class="img-fluid"
+                                    loading="lazy">
                             </div>
                             <div class="item-details">
                                 <div class="item-category">Pemerintahan</div>
@@ -185,66 +171,5 @@
             </div>
         </div>
     </section>
-    <section class="events section">
-        <div class="container section-title">
-            <h2>Agenda &amp; Pengumuman</h2>
-            <p>Informasi ringkas kegiatan dan layanan.</p>
-        </div>
 
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-6">
-                    <div class="event-card">
-                        <div class="event-date">
-                            <span class="month">JAN</span>
-                            <span class="day">10</span>
-                            <span class="year">2026</span> {{-- Tahun disesuaikan --}}
-                        </div>
-                        <div class="event-content">
-                            <div class="event-tag community">Pelayanan</div>
-                            <h3>Pelayanan KTP &amp; KK (Kecamatan)</h3>
-                            <p>Layanan kolektif perekaman & pengambilan dokumen kependudukan.</p>
-                            <div class="event-meta">
-                                <div class="meta-item"><i class="bi bi-clock"></i><span>08:00–12:00</span></div>
-                                <div class="meta-item"><i class="bi bi-geo-alt"></i><span>Balai Desa Ulukalo</span></div>
-                            </div>
-                            <div class="event-actions">
-                                {{-- Ganti '#' dengan route('kontak') jika sudah dibuat --}}
-                                <a href="#" class="btn-learn-more">Kontak Panitia</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="event-card">
-                        <div class="event-date">
-                            <span class="month">FEB</span>
-                            <span class="day">05</span>
-                            <span class="year">2026</span> {{-- Tahun disesuaikan --}}
-                        </div>
-                        <div class="event-content">
-                            <div class="event-tag academic">Musdes</div>
-                            <h3>Musyawarah Desa</h3>
-                            <p>Penyusunan rencana program dan prioritas pembangunan desa.</p>
-                            <div class="event-meta">
-                                <div class="meta-item"><i class="bi bi-clock"></i><span>13:00–16:00</span></div>
-                                <div class="meta-item"><i class="bi bi-geo-alt"></i><span>Aula Kantor Desa</span></div>
-                            </div>
-                            <div class="event-actions">
-                                {{-- Ganti '#' dengan route('apbdes') jika sudah dibuat --}}
-                                <a href="#" class="btn-learn-more">Lihat Draf APBDes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="text-center mt-5">
-                {{-- Ganti '#' dengan route('agenda') jika ada halaman khusus agenda --}}
-                <a href="#" class="btn-view-all">Lihat Selengkapnya</a>
-            </div>
-        </div>
-    </section>
 @endsection
