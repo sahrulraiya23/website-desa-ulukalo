@@ -20,5 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
 
 
-    public function boot() {}
+    use Illuminate\Support\Facades\URL;
+
+    public function boot()
+    {
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+    }
 }
